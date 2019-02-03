@@ -43,9 +43,9 @@ public:
 	int howManyPlayers();
 	void roll(int roll);
 
-	private:
-		void askQuestion();
-		string currentCategory();
+	string currentCategory();
+	private: 
+    void askQuestion();
 
 				public:
 					bool wasCorrectlyAnswered();
