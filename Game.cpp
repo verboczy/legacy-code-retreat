@@ -32,7 +32,10 @@ string Game::getPopQuestion(int t_index)
   int count = 0;
   for (auto it = m_popQuestions.begin(); it != m_popQuestions.end(); it++)
   {
-    if (count == t_index) return *it;
+    if (count == t_index)
+    {
+      return *it;
+    }
     count++;
   }
 }
@@ -42,7 +45,10 @@ string Game::getScienceQuestion(int t_index)
   int count = 0;
   for (auto it = m_scienceQuestions.begin(); it != m_scienceQuestions.end(); it++)
   {
-    if (count == t_index) return *it;
+    if (count == t_index)
+    {
+      return *it;
+    }
     count++;
   }
 }
@@ -52,7 +58,10 @@ string Game::getSportsQuestion(int t_index)
   int count = 0;
   for (auto it = m_sportsQuestions.begin(); it != m_sportsQuestions.end(); it++)
   {
-    if (count == t_index) return *it;
+    if (count == t_index)
+    {
+      return *it;
+    }
     count++;
   }
 }
@@ -62,7 +71,10 @@ string Game::getRockQuestion(int t_index)
   int count = 0;
   for (auto it = m_rockQuestions.begin(); it != m_rockQuestions.end(); it++)
   {
-    if (count == t_index) return *it;
+    if (count == t_index)
+    {
+      return *it;
+    }
     count++;
   }
 }
@@ -139,7 +151,10 @@ void Game::roll(int t_roll)
 
       cout << m_players[m_currentPlayer] << " is getting out of the penalty box" << endl;
       m_places[m_currentPlayer] = m_places[m_currentPlayer] + t_roll;
-      if (m_places[m_currentPlayer] > 11) m_places[m_currentPlayer] = m_places[m_currentPlayer] - 12;
+      if (m_places[m_currentPlayer] > 11)
+      {
+        m_places[m_currentPlayer] = m_places[m_currentPlayer] - 12;
+      }
 
       cout << m_players[m_currentPlayer] << "'s new location is " << m_places[m_currentPlayer] << endl;
       cout << "The category is " << currentCategory() << endl;
@@ -154,7 +169,10 @@ void Game::roll(int t_roll)
   else
   {
     m_places[m_currentPlayer] = m_places[m_currentPlayer] + t_roll;
-    if (m_places[m_currentPlayer] > 11) m_places[m_currentPlayer] = m_places[m_currentPlayer] - 12;
+    if (m_places[m_currentPlayer] > 11)
+    {
+      m_places[m_currentPlayer] = m_places[m_currentPlayer] - 12;
+    }
 
     cout << m_players[m_currentPlayer] << "'s new location is " << m_places[m_currentPlayer] << endl;
     cout << "The category is " << currentCategory() << endl;
@@ -216,14 +234,20 @@ bool Game::wasCorrectlyAnswered()
 
       bool winner = didPlayerWin();
       m_currentPlayer++;
-      if (m_currentPlayer == m_players.size()) m_currentPlayer = 0;
+      if (m_currentPlayer == m_players.size())
+      {
+        m_currentPlayer = 0;
+      }
 
       return winner;
     }
     else
     {
       m_currentPlayer++;
-      if (m_currentPlayer == m_players.size()) m_currentPlayer = 0;
+      if (m_currentPlayer == m_players.size())
+      {
+        m_currentPlayer = 0;
+      }
       
       return true;
     }
@@ -240,7 +264,10 @@ bool Game::wasCorrectlyAnswered()
 
     bool winner = didPlayerWin();
     m_currentPlayer++;
-    if (m_currentPlayer == m_players.size()) m_currentPlayer = 0;
+    if (m_currentPlayer == m_players.size())
+    {
+      m_currentPlayer = 0;
+    }
 
     return winner;
   }
@@ -253,7 +280,10 @@ bool Game::wrongAnswer()
   m_inPenaltyBox[m_currentPlayer] = true;
 
   m_currentPlayer++;
-  if (m_currentPlayer == m_players.size()) m_currentPlayer = 0;
+  if (m_currentPlayer == m_players.size())
+  {    
+    m_currentPlayer = 0;
+  }
   
   return true;
 }
