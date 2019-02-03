@@ -26,7 +26,12 @@ class Game{
 
 public:
 	Game();
+  string getPopQuestion(int index);
+  string getScienceQuestion(int index);
+  string getSportsQuestion(int index);
+  string getRockQuestion(int index);
 	string createRockQuestion(int index);
+  int getCurrentPlayer();
 	bool isPlayable();
 	bool add(string playerName);
 

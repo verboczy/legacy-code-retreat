@@ -27,11 +27,56 @@ Game::Game() : currentPlayer(0), places({}), purses({}){
 	}
 }
 
+  string Game::getPopQuestion(int index)
+  {
+    int count = 0;
+    for (auto it = popQuestions.begin(); it != popQuestions.end(); it++)
+    {
+      if (count == index) return *it;
+      count++;
+    }
+  }
+  
+  string Game::getScienceQuestion(int index)
+  {
+    int count = 0;
+    for (auto it = scienceQuestions.begin(); it != scienceQuestions.end(); it++)
+    {
+      if (count == index) return *it;
+      count++;
+    }
+  }
+  
+  string Game::getSportsQuestion(int index)
+  {
+    int count = 0;
+    for (auto it = sportsQuestions.begin(); it != sportsQuestions.end(); it++)
+    {
+      if (count == index) return *it;
+      count++;
+    }
+  }
+  
+  string Game::getRockQuestion(int index)
+  {
+    int count = 0;
+    for (auto it = rockQuestions.begin(); it != rockQuestions.end(); it++)
+    {
+      if (count == index) return *it;
+      count++;
+    }
+  }
+
 string Game::createRockQuestion(int index)
 {
 	char indexStr[127];
 	sprintf(indexStr, "Rock Question %d", index);
 	return indexStr;
+}
+
+int Game::getCurrentPlayer()
+{
+  return currentPlayer;
 }
 
 bool Game::isPlayable()
