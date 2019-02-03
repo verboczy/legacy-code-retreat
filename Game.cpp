@@ -149,20 +149,23 @@ void Game::roll(int t_roll)
     {
       m_isGettingOutOfPenaltyBox = true;
 
-      cout << m_players[m_currentPlayer] << " is getting out of the penalty box" << endl;
+      cout << m_players[m_currentPlayer] << " is getting out of the penalty box" 
+           << endl;
       m_places[m_currentPlayer] = m_places[m_currentPlayer] + t_roll;
       if (m_places[m_currentPlayer] > 11)
       {
         m_places[m_currentPlayer] = m_places[m_currentPlayer] - 12;
       }
 
-      cout << m_players[m_currentPlayer] << "'s new location is " << m_places[m_currentPlayer] << endl;
+      cout << m_players[m_currentPlayer] << "'s new location is " 
+           << m_places[m_currentPlayer] << endl;
       cout << "The category is " << currentCategory() << endl;
       askQuestion();
     }
     else
     {
-      cout << m_players[m_currentPlayer] << " is not getting out of the penalty box" << endl;
+      cout << m_players[m_currentPlayer] << " is not getting out of the penalty box" 
+           << endl;
       m_isGettingOutOfPenaltyBox = false;
     }
   }
@@ -174,7 +177,8 @@ void Game::roll(int t_roll)
       m_places[m_currentPlayer] = m_places[m_currentPlayer] - 12;
     }
 
-    cout << m_players[m_currentPlayer] << "'s new location is " << m_places[m_currentPlayer] << endl;
+    cout << m_players[m_currentPlayer] << "'s new location is " 
+         << m_places[m_currentPlayer] << endl;
     cout << "The category is " << currentCategory() << endl;
     askQuestion();
   }
