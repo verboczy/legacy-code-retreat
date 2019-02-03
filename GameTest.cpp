@@ -223,13 +223,20 @@ TEST (WasCorrectlyAnswered, InPenaltyNotGetOut)
   ASSERT_EQ(0, testGame.getPurse(0));
 }
 
-
 TEST (WasCorrectlyAnswered, NotInPenalty)
 {
   Game testGame;
   testGame.add("Alice");
   testGame.wasCorrectlyAnswered();
   ASSERT_EQ(1, testGame.getPurse(0));
+}
+
+TEST (WrongAnswer, GetPenalty)
+{
+  Game testGame;
+  testGame.add("Alice");
+  testGame.wrongAnswer();
+  ASSERT_EQ(true, testGame.isInPenaltyBox(0));
 }
 
 int main(int argc, char **argv)
