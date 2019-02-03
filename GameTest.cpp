@@ -46,6 +46,20 @@ TEST (IsPlayable, Playable)
   ASSERT_EQ(true, testGame.isPlayable());
 }
 
+TEST (Add, InitializePlayer)
+{
+  Game testGame;
+  testGame.add("Alice");
+  ASSERT_EQ("Alice", testGame.getPlayer(0));
+  ASSERT_EQ(0, testGame.getPlace(0));
+  ASSERT_EQ(0, testGame.getPurse(0));
+  // This found a bug! This is wrong:
+  // inPenaltyBox[howManyPlayers()] = false;
+  // howManyPlayers() - 1 would be better
+  // Also the place and purse initialization is wrong.
+  ASSERT_EQ(false, testGame.isInPenaltyBox(0));
+}
+
 int main(int argc, char **argv)
 {
   testing::InitGoogleTest(&argc, argv);
