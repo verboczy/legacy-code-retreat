@@ -35,6 +35,7 @@ public:
   int getPlace(int index);
   int getPurse(int index);
   bool isInPenaltyBox(int index);
+  bool getIsGettingOutOfPenaltyBox();
   int getCurrentPlayer();
 	bool isPlayable();
 	bool add(string playerName);

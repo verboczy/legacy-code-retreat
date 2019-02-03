@@ -99,6 +99,11 @@ bool Game::isInPenaltyBox(int index)
   return inPenaltyBox[index];
 }
 
+bool Game::getIsGettingOutOfPenaltyBox()
+{
+  return isGettingOutOfPenaltyBox;
+}
+
 bool Game::isPlayable()
 {
 	return (howManyPlayers() >= 2);
