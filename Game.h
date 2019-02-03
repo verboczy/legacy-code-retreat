@@ -8,51 +8,51 @@ using namespace std;
 
 class Game{
 
-		private:
-			vector<string> players;
+    private:
+      vector<string> players;
 
-			int places[6];
-			int purses[6];
+      int places[6];
+      int purses[6];
 
-			bool inPenaltyBox[6];
+      bool inPenaltyBox[6];
 
-			list<string> popQuestions;
-			list<string> scienceQuestions;
-			list<string> sportsQuestions;
-			list<string> rockQuestions;
+      list<string> popQuestions;
+      list<string> scienceQuestions;
+      list<string> sportsQuestions;
+      list<string> rockQuestions;
 
-			int currentPlayer;
-			bool isGettingOutOfPenaltyBox;
+      int currentPlayer;
+      bool isGettingOutOfPenaltyBox;
 
 public:
-	Game();
+  Game();
   string getPopQuestion(int index);
   string getScienceQuestion(int index);
   string getSportsQuestion(int index);
   string getRockQuestion(int index);
-	string createRockQuestion(int index);
+  string createRockQuestion(int index);
   string getPlayer(int index);
   int getPlace(int index);
   int getPurse(int index);
   bool isInPenaltyBox(int index);
   bool getIsGettingOutOfPenaltyBox();
   int getCurrentPlayer();
-	bool isPlayable();
-	bool add(string playerName);
+  bool isPlayable();
+  bool add(string playerName);
 
-	int howManyPlayers();
-	void roll(int roll);
+  int howManyPlayers();
+  void roll(int roll);
 
-	string currentCategory();
-	private: 
+  string currentCategory();
+  private: 
     void askQuestion();
 
-				public:
-					bool wasCorrectlyAnswered();
-					bool wrongAnswer();
+        public:
+          bool wasCorrectlyAnswered();
+          bool wrongAnswer();
 
 private:
-	bool didPlayerWin();
+  bool didPlayerWin();
 };
 
 #endif /* GAME_H_ */
