@@ -60,6 +60,26 @@ TEST (Add, InitializePlayer)
   ASSERT_EQ(false, testGame.isInPenaltyBox(0));
 }
 
+TEST (HowManyPlayers, HowMany)
+{
+  Game testGame;
+  ASSERT_EQ(0, testGame.howManyPlayers());
+  testGame.add("Alice");
+  ASSERT_EQ(1, testGame.howManyPlayers());
+  testGame.add("Bob");
+  ASSERT_EQ(2, testGame.howManyPlayers());
+  testGame.add("Judy");
+  ASSERT_EQ(3, testGame.howManyPlayers());
+  testGame.add("Mallory");
+  ASSERT_EQ(4, testGame.howManyPlayers());
+  testGame.add("Oscar");
+  ASSERT_EQ(5, testGame.howManyPlayers());
+  testGame.add("Trent");
+  ASSERT_EQ(6, testGame.howManyPlayers());
+  testGame.add("Trudy");
+  ASSERT_EQ(7, testGame.howManyPlayers());
+}
+
 int main(int argc, char **argv)
 {
   testing::InitGoogleTest(&argc, argv);
