@@ -20,6 +20,32 @@ TEST (GameConstructorTest, CurrentPlayer)
   ASSERT_EQ(0, testGame.getCurrentPlayer());
 }
 
+TEST (IsPlayable, NotPlayable)
+{
+  Game testGame;
+  ASSERT_EQ(false, testGame.isPlayable());
+  testGame.add("Alice");
+  ASSERT_EQ(false, testGame.isPlayable());
+}
+
+TEST (IsPlayable, Playable)
+{
+  Game testGame;
+  testGame.add("Alice");
+  testGame.add("Bob");
+  ASSERT_EQ(true, testGame.isPlayable());
+  testGame.add("Judy");
+  ASSERT_EQ(true, testGame.isPlayable());
+  testGame.add("Mallory");
+  ASSERT_EQ(true, testGame.isPlayable());
+  testGame.add("Oscar");
+  ASSERT_EQ(true, testGame.isPlayable());
+  testGame.add("Trent");
+  ASSERT_EQ(true, testGame.isPlayable());
+  testGame.add("Trudy");
+  ASSERT_EQ(true, testGame.isPlayable());
+}
+
 int main(int argc, char **argv)
 {
   testing::InitGoogleTest(&argc, argv);
