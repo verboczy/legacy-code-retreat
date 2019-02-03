@@ -31,6 +31,10 @@ public:
   string getSportsQuestion(int index);
   string getRockQuestion(int index);
 	string createRockQuestion(int index);
+  string getPlayer(int index);
+  int getPlace(int index);
+  int getPurse(int index);
+  bool isInPenaltyBox(int index);
   int getCurrentPlayer();
 	bool isPlayable();
 	bool add(string playerName);

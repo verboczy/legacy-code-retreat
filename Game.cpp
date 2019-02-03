@@ -79,6 +79,26 @@ int Game::getCurrentPlayer()
   return currentPlayer;
 }
 
+string Game::getPlayer(int index)
+{
+  return players[index];
+}
+
+int Game::getPlace(int index)
+{
+  return places[index];
+}
+
+int Game::getPurse(int index)
+{
+  return purses[index];
+}
+
+bool Game::isInPenaltyBox(int index)
+{
+  return inPenaltyBox[index];
+}
+
 bool Game::isPlayable()
 {
 	return (howManyPlayers() >= 2);
