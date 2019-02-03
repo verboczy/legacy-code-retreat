@@ -201,6 +201,37 @@ TEST (CurrentCategory, Rock)
   ASSERT_EQ("Rock", testGame.currentCategory());
 }
 
+TEST (WasCorrectlyAnswered, InPenaltyGetOut)
+{
+  Game testGame;
+  testGame.add("Alice");
+  // Put her into penalty box
+  testGame.wrongAnswer();
+  testGame.roll(11);
+  testGame.wasCorrectlyAnswered();
+  ASSERT_EQ(1, testGame.getPurse(0));
+}
+
+TEST (WasCorrectlyAnswered, InPenaltyNotGetOut)
+{
+  Game testGame;
+  testGame.add("Alice");
+  // Put her into penalty box
+  testGame.wrongAnswer();
+  testGame.roll(2);
+  testGame.wasCorrectlyAnswered();
+  ASSERT_EQ(0, testGame.getPurse(0));
+}
+
+
+TEST (WasCorrectlyAnswered, NotInPenalty)
+{
+  Game testGame;
+  testGame.add("Alice");
+  testGame.wasCorrectlyAnswered();
+  ASSERT_EQ(1, testGame.getPurse(0));
+}
+
 int main(int argc, char **argv)
 {
   testing::InitGoogleTest(&argc, argv);
