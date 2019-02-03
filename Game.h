@@ -26,16 +26,26 @@ class Game{
 
 public:
 	Game();
+  string getPopQuestion(int index);
+  string getScienceQuestion(int index);
+  string getSportsQuestion(int index);
+  string getRockQuestion(int index);
 	string createRockQuestion(int index);
+  string getPlayer(int index);
+  int getPlace(int index);
+  int getPurse(int index);
+  bool isInPenaltyBox(int index);
+  bool getIsGettingOutOfPenaltyBox();
+  int getCurrentPlayer();
 	bool isPlayable();
 	bool add(string playerName);
 
 	int howManyPlayers();
 	void roll(int roll);
 
-	private:
-		void askQuestion();
-		string currentCategory();
+	string currentCategory();
+	private: 
+    void askQuestion();
 
 				public:
 					bool wasCorrectlyAnswered();
