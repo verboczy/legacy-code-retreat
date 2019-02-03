@@ -133,6 +133,74 @@ TEST (Roll, NotInPenaltyNotGreaterThan11)
   ASSERT_EQ(8, testGame.getPlace(0));
 }
 
+TEST (CurrentCategory, Pop)
+{
+  Game testGame;
+  testGame.add("Alice");
+  // 0
+  ASSERT_EQ("Pop", testGame.currentCategory());
+  // 4
+  testGame.roll(3);
+  testGame.roll(1);
+  ASSERT_EQ("Pop", testGame.currentCategory());
+  // 8
+  testGame.roll(3);
+  testGame.roll(1);
+  ASSERT_EQ("Pop", testGame.currentCategory());
+}
+
+TEST (CurrentCategory, Science)
+{
+  Game testGame;
+  testGame.add("Alice");
+  // 1
+  testGame.roll(1);
+  ASSERT_EQ("Science", testGame.currentCategory());
+  // 5
+  testGame.roll(3);
+  testGame.roll(1);  
+  ASSERT_EQ("Science", testGame.currentCategory());
+  // 9
+  testGame.roll(3);
+  testGame.roll(1);
+  ASSERT_EQ("Science", testGame.currentCategory());
+}
+
+TEST (CurrentCategory, Sports)
+{
+  Game testGame;
+  testGame.add("Alice");
+  // 2
+  testGame.roll(1);
+  testGame.roll(1);
+  ASSERT_EQ("Sports", testGame.currentCategory());
+  // 6
+  testGame.roll(3);
+  testGame.roll(1);  
+  ASSERT_EQ("Sports", testGame.currentCategory());
+  // 10
+  testGame.roll(3);
+  testGame.roll(1);
+  ASSERT_EQ("Sports", testGame.currentCategory());
+}
+
+TEST (CurrentCategory, Rock)
+{
+  Game testGame;
+  testGame.add("Alice");
+  // 3
+  testGame.roll(3);
+  ASSERT_EQ("Rock", testGame.currentCategory());
+  // 7
+  testGame.roll(3);
+  testGame.roll(1);  
+  ASSERT_EQ("Rock", testGame.currentCategory());
+  // 11
+  testGame.roll(3);
+  testGame.roll(1);
+  ASSERT_EQ("Rock", testGame.currentCategory());
+}
+
 int main(int argc, char **argv)
 {
   testing::InitGoogleTest(&argc, argv);
