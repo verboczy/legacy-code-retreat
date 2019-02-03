@@ -17,11 +17,13 @@ class Game{
     string getSportsQuestion(int t_index);
     string getRockQuestion(int t_index);
     string getPlayer(int t_index);
+    
     int getPlace(int t_index);
     int getPurse(int t_index);
+    int getCurrentPlayer();
+    
     bool isInPenaltyBox(int t_index);
     bool getIsGettingOutOfPenaltyBox();
-    int getCurrentPlayer();
     
     bool isPlayable();
     bool add(string t_playerName);

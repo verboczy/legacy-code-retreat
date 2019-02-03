@@ -6,7 +6,8 @@
 
 using namespace std;
 
-Game::Game() : m_currentPlayer(0), m_places({}), m_purses({}){
+Game::Game() : m_currentPlayer(0), m_places({}), m_purses({})
+{
   for (int i = 0; i < 50; i++)
   {
     ostringstream oss (ostringstream::out);
@@ -26,45 +27,45 @@ Game::Game() : m_currentPlayer(0), m_places({}), m_purses({}){
   }
 }
 
-  string Game::getPopQuestion(int t_index)
+string Game::getPopQuestion(int t_index)
+{
+  int count = 0;
+  for (auto it = m_popQuestions.begin(); it != m_popQuestions.end(); it++)
   {
-    int count = 0;
-    for (auto it = m_popQuestions.begin(); it != m_popQuestions.end(); it++)
-    {
-      if (count == t_index) return *it;
-      count++;
-    }
+    if (count == t_index) return *it;
+    count++;
   }
-  
-  string Game::getScienceQuestion(int t_index)
+}
+
+string Game::getScienceQuestion(int t_index)
+{
+  int count = 0;
+  for (auto it = m_scienceQuestions.begin(); it != m_scienceQuestions.end(); it++)
   {
-    int count = 0;
-    for (auto it = m_scienceQuestions.begin(); it != m_scienceQuestions.end(); it++)
-    {
-      if (count == t_index) return *it;
-      count++;
-    }
+    if (count == t_index) return *it;
+    count++;
   }
-  
-  string Game::getSportsQuestion(int t_index)
+}
+
+string Game::getSportsQuestion(int t_index)
+{
+  int count = 0;
+  for (auto it = m_sportsQuestions.begin(); it != m_sportsQuestions.end(); it++)
   {
-    int count = 0;
-    for (auto it = m_sportsQuestions.begin(); it != m_sportsQuestions.end(); it++)
-    {
-      if (count == t_index) return *it;
-      count++;
-    }
+    if (count == t_index) return *it;
+    count++;
   }
-  
-  string Game::getRockQuestion(int t_index)
+}
+
+string Game::getRockQuestion(int t_index)
+{
+  int count = 0;
+  for (auto it = m_rockQuestions.begin(); it != m_rockQuestions.end(); it++)
   {
-    int count = 0;
-    for (auto it = m_rockQuestions.begin(); it != m_rockQuestions.end(); it++)
-    {
-      if (count == t_index) return *it;
-      count++;
-    }
+    if (count == t_index) return *it;
+    count++;
   }
+}
 
 string Game::createRockQuestion(int t_index)
 {
@@ -116,6 +117,7 @@ bool Game::add(string t_playerName){
 
   cout << t_playerName << " was added" << endl;
   cout << "They are player number " << m_players.size() << endl;
+  
   return true;
 }
 
@@ -148,11 +150,9 @@ void Game::roll(int t_roll)
       cout << m_players[m_currentPlayer] << " is not getting out of the penalty box" << endl;
       m_isGettingOutOfPenaltyBox = false;
     }
-
   }
   else
   {
-
     m_places[m_currentPlayer] = m_places[m_currentPlayer] + t_roll;
     if (m_places[m_currentPlayer] > 11) m_places[m_currentPlayer] = m_places[m_currentPlayer] - 12;
 
@@ -160,7 +160,6 @@ void Game::roll(int t_roll)
     cout << "The category is " << currentCategory() << endl;
     askQuestion();
   }
-
 }
 
 void Game::askQuestion()
@@ -187,7 +186,6 @@ void Game::askQuestion()
   }
 }
 
-
 string Game::currentCategory()
 {
   if (m_places[m_currentPlayer] == 0) return "Pop";
@@ -199,6 +197,7 @@ string Game::currentCategory()
   if (m_places[m_currentPlayer] == 2) return "Sports";
   if (m_places[m_currentPlayer] == 6) return "Sports";
   if (m_places[m_currentPlayer] == 10) return "Sports";
+  
   return "Rock";
 }
 
@@ -225,11 +224,9 @@ bool Game::wasCorrectlyAnswered()
     {
       m_currentPlayer++;
       if (m_currentPlayer == m_players.size()) m_currentPlayer = 0;
+      
       return true;
     }
-
-
-
   }
   else
   {
@@ -257,9 +254,9 @@ bool Game::wrongAnswer()
 
   m_currentPlayer++;
   if (m_currentPlayer == m_players.size()) m_currentPlayer = 0;
+  
   return true;
 }
-
 
 bool Game::didPlayerWin()
 {
