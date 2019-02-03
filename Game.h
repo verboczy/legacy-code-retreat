@@ -10,44 +10,44 @@ class Game{
   public:
     Game();
     
-    string createRockQuestion(int index);
+    string createRockQuestion(int t_index);
     
-    string getPopQuestion(int index);
+    string getPopQuestion(int t_index);
     string getScienceQuestion(int index);
-    string getSportsQuestion(int index);
-    string getRockQuestion(int index);
-    string getPlayer(int index);
-    int getPlace(int index);
-    int getPurse(int index);
-    bool isInPenaltyBox(int index);
+    string getSportsQuestion(int t_index);
+    string getRockQuestion(int t_index);
+    string getPlayer(int t_index);
+    int getPlace(int t_index);
+    int getPurse(int t_index);
+    bool isInPenaltyBox(int t_index);
     bool getIsGettingOutOfPenaltyBox();
     int getCurrentPlayer();
     
     bool isPlayable();
-    bool add(string playerName);
+    bool add(string t_playerName);
     bool wasCorrectlyAnswered();
     bool wrongAnswer();
 
     int howManyPlayers();
-    void roll(int roll);
+    void roll(int t_roll);
 
     string currentCategory();
 
   private:
-    vector<string> players;
+    vector<string> m_players;
 
-    int places[6];
-    int purses[6];
+    int m_places[6];
+    int m_purses[6];
 
-    bool inPenaltyBox[6];
+    bool m_inPenaltyBox[6];
 
-    list<string> popQuestions;
-    list<string> scienceQuestions;
-    list<string> sportsQuestions;
-    list<string> rockQuestions;
+    list<string> m_popQuestions;
+    list<string> m_scienceQuestions;
+    list<string> m_sportsQuestions;
+    list<string> m_rockQuestions;
 
-    int currentPlayer;
-    bool isGettingOutOfPenaltyBox;
+    int m_currentPlayer;
+    bool m_isGettingOutOfPenaltyBox;
 
     void askQuestion();
 
