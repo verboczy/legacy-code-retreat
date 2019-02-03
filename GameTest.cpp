@@ -80,6 +80,59 @@ TEST (HowManyPlayers, HowMany)
   ASSERT_EQ(7, testGame.howManyPlayers());
 }
 
+TEST (Roll, InPenaltyButGetOutGreaterThan11)
+{
+  Game testGame;
+  testGame.add("Alice");
+  // Put her into penalty box
+  testGame.wrongAnswer();
+  testGame.roll(13);
+  ASSERT_EQ(1, testGame.getPlace(0));
+  ASSERT_EQ(true, testGame.getIsGettingOutOfPenaltyBox());
+}
+
+TEST (Roll, InPenaltyButGetOutNotGreaterThan11)
+{
+  Game testGame;
+  testGame.add("Alice");
+  // Put her into penalty box
+  testGame.wrongAnswer();
+  testGame.roll(11);
+  ASSERT_EQ(11, testGame.getPlace(0));
+  ASSERT_EQ(true, testGame.getIsGettingOutOfPenaltyBox());  
+}
+
+TEST (Roll, InPenaltyNotGetOut)
+{
+  Game testGame;
+  testGame.add("Alice");
+  // Put her into penalty box
+  testGame.wrongAnswer();
+  testGame.roll(2);
+  ASSERT_EQ(0, testGame.getPlace(0));
+  ASSERT_EQ(false, testGame.getIsGettingOutOfPenaltyBox());
+}
+
+// Failing because of the bug in the add method
+TEST (Roll, NotInPenaltyGreaterThan11)
+{
+  Game testGame;
+  testGame.add("Alice");
+  // Initially should not be in penalty
+  testGame.roll(16);
+  ASSERT_EQ(4, testGame.getPlace(0));
+}
+
+// Failing because of the bug in the add method
+TEST (Roll, NotInPenaltyNotGreaterThan11)
+{
+  Game testGame;
+  testGame.add("Alice");
+  // Initially should not be in penalty
+  testGame.roll(8);
+  ASSERT_EQ(8, testGame.getPlace(0));
+}
+
 int main(int argc, char **argv)
 {
   testing::InitGoogleTest(&argc, argv);
