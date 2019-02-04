@@ -5,7 +5,10 @@
 #include <vector>
 #include <string>
 
-class Game{
+class Player;
+
+class Game
+{
   public:
     Game();
     
@@ -15,7 +18,7 @@ class Game{
     std::string getScienceQuestion(int index);
     std::string getSportsQuestion(int t_index);
     std::string getRockQuestion(int t_index);
-    std::string getPlayer(int t_index);
+    Player getPlayer(int t_index);
     
     int getPlace(int t_index);
     int getPurse(int t_index);
@@ -24,7 +27,7 @@ class Game{
     bool isInPenaltyBox(int t_index);
     bool getIsGettingOutOfPenaltyBox();
     
-    void add(std::string t_playerName);
+    void add(Player t_player);
     bool isPlayable();
     int howManyPlayers();
     void roll(int t_roll);
@@ -35,13 +38,8 @@ class Game{
     std::string getCurrentCategory();
 
   private:
-    std::vector<std::string> m_players;
+    std::vector<Player> m_players;
     std::vector<std::string> m_currentCategory;
-
-    int m_places[6];
-    int m_purses[6];
-
-    bool m_inPenaltyBox[6];
 
     std::list<std::string> m_popQuestions;
     std::list<std::string> m_scienceQuestions;
@@ -54,6 +52,25 @@ class Game{
     void askQuestion();
 
     bool didPlayerWin();
+};
+
+class Player
+{
+  friend class Game;
+  public:
+    Player(std::string t_name);
+    std::string getName();
+    int getPurse();
+    int getPlace();
+    bool getIsInPenaltyBox();
+    
+    friend std::ostream& operator<<(std::ostream& t_os, Player const & t_player);
+    
+  private:
+    std::string m_name;
+    int m_purse;
+    int m_place;
+    bool m_isInPenaltyBox;
 };
 
 #endif // GAME_H_
