@@ -107,8 +107,8 @@ bool Game::add(std::string t_playerName){
   m_purses[howManyPlayers()] = 0;
   m_inPenaltyBox[howManyPlayers()] = false;
 
-  std::cout << t_playerName << " was added" << std::endl;
-  std::cout << "They are player number " << m_players.size() << std::endl;
+  std::clog << t_playerName << " was added" << std::endl;
+  std::clog << "Number of player(s): " << m_players.size() << std::endl;
   
   return true;
 }
@@ -121,7 +121,7 @@ int Game::howManyPlayers()
 void Game::roll(int t_roll)
 {
   std::cout << m_players[m_currentPlayer] << " is the current player" << std::endl;
-  std::cout << "They have rolled a " << t_roll << std::endl;
+  std::cout << "(s)he has rolled a " << t_roll << std::endl;
 
   if (m_inPenaltyBox[m_currentPlayer])
   {
@@ -237,7 +237,7 @@ bool Game::wasCorrectlyAnswered()
   else
   {
 
-    std::cout << "Answer was corrent!!!!" << std::endl;
+    std::cout << "Answer was correct!!!!" << std::endl;
     ++m_purses[m_currentPlayer];
     std::cout << m_players[m_currentPlayer]
         << " now has "
