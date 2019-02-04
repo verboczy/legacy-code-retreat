@@ -62,9 +62,9 @@ TEST (Add, InitializePlayer)
   Player alice{"Alice"};
   testGame.add(alice);
   ASSERT_EQ("Alice", testGame.getPlayer(0).getName());
-  ASSERT_EQ(0, testGame.getPlace(0));
-  ASSERT_EQ(0, testGame.getPurse(0));
-  ASSERT_EQ(false, testGame.isInPenaltyBox(0));
+  ASSERT_EQ(0, testGame.getPlayer(0).getPlace());
+  ASSERT_EQ(0, testGame.getPlayer(0).getPurse());
+  ASSERT_EQ(false, testGame.getPlayer(0).getIsInPenaltyBox());
 }
 
 TEST (Add, NoSameNames)
@@ -114,7 +114,7 @@ TEST (Roll, InPenaltyButGetOutGreaterThan11)
   // Put her into penalty box
   testGame.wrongAnswer();
   testGame.roll(13);
-  ASSERT_EQ(1, testGame.getPlace(0));
+  ASSERT_EQ(1, testGame.getPlayer(0).getPlace());
   ASSERT_EQ(true, testGame.getIsGettingOutOfPenaltyBox());
 }
 
@@ -126,7 +126,7 @@ TEST (Roll, InPenaltyButGetOutNotGreaterThan11)
   // Put her into penalty box
   testGame.wrongAnswer();
   testGame.roll(11);
-  ASSERT_EQ(11, testGame.getPlace(0));
+  ASSERT_EQ(11, testGame.getPlayer(0).getPlace());
   ASSERT_EQ(true, testGame.getIsGettingOutOfPenaltyBox());  
 }
 
@@ -138,7 +138,7 @@ TEST (Roll, InPenaltyNotGetOut)
   // Put her into penalty box
   testGame.wrongAnswer();
   testGame.roll(2);
-  ASSERT_EQ(0, testGame.getPlace(0));
+  ASSERT_EQ(0, testGame.getPlayer(0).getPlace());
   ASSERT_EQ(false, testGame.getIsGettingOutOfPenaltyBox());
 }
 
@@ -150,7 +150,7 @@ TEST (Roll, NotInPenaltyGreaterThan11)
   testGame.add(alice);
   // Initially should not be in penalty
   testGame.roll(16);
-  ASSERT_EQ(4, testGame.getPlace(0));
+  ASSERT_EQ(4, testGame.getPlayer(0).getPlace());
 }
 
 // Failing because of the bug in the add method
@@ -161,7 +161,7 @@ TEST (Roll, NotInPenaltyNotGreaterThan11)
   testGame.add(alice);
   // Initially should not be in penalty
   testGame.roll(8);
-  ASSERT_EQ(8, testGame.getPlace(0));
+  ASSERT_EQ(8, testGame.getPlayer(0).getPlace());
 }
 
 TEST (CurrentCategory, Pop)
@@ -245,7 +245,7 @@ TEST (WasCorrectlyAnswered, InPenaltyGetOut)
   testGame.wrongAnswer();
   testGame.roll(11);
   testGame.wasCorrectlyAnswered();
-  ASSERT_EQ(1, testGame.getPurse(0));
+  ASSERT_EQ(1, testGame.getPlayer(0).getPurse());
 }
 
 TEST (WasCorrectlyAnswered, InPenaltyNotGetOut)
@@ -257,7 +257,7 @@ TEST (WasCorrectlyAnswered, InPenaltyNotGetOut)
   testGame.wrongAnswer();
   testGame.roll(2);
   testGame.wasCorrectlyAnswered();
-  ASSERT_EQ(0, testGame.getPurse(0));
+  ASSERT_EQ(0, testGame.getPlayer(0).getPurse());
 }
 
 TEST (WasCorrectlyAnswered, NotInPenalty)
@@ -266,7 +266,7 @@ TEST (WasCorrectlyAnswered, NotInPenalty)
   Player alice{"Alice"};
   testGame.add(alice);
   testGame.wasCorrectlyAnswered();
-  ASSERT_EQ(1, testGame.getPurse(0));
+  ASSERT_EQ(1, testGame.getPlayer(0).getPurse());
 }
 
 TEST (WrongAnswer, GetPenalty)
@@ -275,7 +275,7 @@ TEST (WrongAnswer, GetPenalty)
   Player alice{"Alice"};
   testGame.add(alice);
   testGame.wrongAnswer();
-  ASSERT_EQ(true, testGame.isInPenaltyBox(0));
+  ASSERT_EQ(true, testGame.getPlayer(0).getIsInPenaltyBox());
 }
 
 TEST (Player, PlayerConstructor)
