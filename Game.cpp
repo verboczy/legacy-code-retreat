@@ -4,7 +4,7 @@
 
 Game::Game() : m_currentPlayerId{0}, m_isGettingOutOfPenaltyBox{false}
 {
-  m_currentCategory.reserve(12);
+  m_currentCategory.reserve(PLACE_SIZE);
   m_currentCategory.push_back("Pop");
   m_currentCategory.push_back("Science");
   m_currentCategory.push_back("Sports");
@@ -113,7 +113,7 @@ bool Game::getIsGettingOutOfPenaltyBox()
 std::string Game::getCurrentCategory()
 {
   int place = m_players[m_currentPlayerId].m_place;
-  if (place > 11)
+  if (place > PLACE_SIZE - 1)
   {
     return "Rock";
   }
@@ -170,9 +170,9 @@ void Game::roll(int t_roll)
       std::cout << m_players[m_currentPlayerId] << " is getting out of the penalty box" 
            << std::endl;
       m_players[m_currentPlayerId].m_place = m_players[m_currentPlayerId].m_place + t_roll;
-      if (m_players[m_currentPlayerId].m_place > 11)
+      if (m_players[m_currentPlayerId].m_place > PLACE_SIZE - 1)
       {
-        m_players[m_currentPlayerId].m_place = m_players[m_currentPlayerId].m_place - 12;
+        m_players[m_currentPlayerId].m_place = m_players[m_currentPlayerId].m_place - PLACE_SIZE;
       }
 
       std::cout << m_players[m_currentPlayerId] << "'s new location is " 
@@ -190,9 +190,9 @@ void Game::roll(int t_roll)
   else
   {
     m_players[m_currentPlayerId].m_place = m_players[m_currentPlayerId].m_place + t_roll;
-    if (m_players[m_currentPlayerId].m_place > 11)
+    if (m_players[m_currentPlayerId].m_place > PLACE_SIZE - 1)
     {
-      m_players[m_currentPlayerId].m_place = m_players[m_currentPlayerId].m_place - 12;
+      m_players[m_currentPlayerId].m_place = m_players[m_currentPlayerId].m_place - PLACE_SIZE;
     }
 
     std::cout << m_players[m_currentPlayerId] << "'s new location is " 

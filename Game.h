@@ -30,6 +30,8 @@ class Player
 class Game
 {
   public:
+    const int PLACE_SIZE = 12;
+  
     Game();
     
     std::string createRockQuestion(int t_index);
