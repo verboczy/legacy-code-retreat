@@ -39,6 +39,8 @@ std::string Game::getPopQuestion(int t_index)
     }
     ++count;
   }
+  
+  return "";
 }
 
 std::string Game::getScienceQuestion(int t_index)
@@ -280,7 +282,7 @@ void Game::changeCurrentPlayerToNextPlayer()
 
 /********************** Player methods **********************/
 
-Player::Player(std::string t_name) : m_name{t_name}, m_place{0}, m_purse{0}, m_isInPenaltyBox{false} 
+Player::Player(std::string t_name) : m_name{t_name}, m_purse{0}, m_place{0}, m_isInPenaltyBox{false} 
 {
   // Initialised everything
 }
