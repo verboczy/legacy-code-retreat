@@ -4,19 +4,18 @@
 #include <list>
 #include <vector>
 #include <string>
-using namespace std;
 
 class Game{
   public:
     Game();
     
-    string createRockQuestion(int t_index);
+    std::string createRockQuestion(int t_index);
     
-    string getPopQuestion(int t_index);
-    string getScienceQuestion(int index);
-    string getSportsQuestion(int t_index);
-    string getRockQuestion(int t_index);
-    string getPlayer(int t_index);
+    std::string getPopQuestion(int t_index);
+    std::string getScienceQuestion(int index);
+    std::string getSportsQuestion(int t_index);
+    std::string getRockQuestion(int t_index);
+    std::string getPlayer(int t_index);
     
     int getPlace(int t_index);
     int getPurse(int t_index);
@@ -26,27 +25,27 @@ class Game{
     bool getIsGettingOutOfPenaltyBox();
     
     bool isPlayable();
-    bool add(string t_playerName);
+    bool add(std::string t_playerName);
     bool wasCorrectlyAnswered();
     bool wrongAnswer();
 
     int howManyPlayers();
     void roll(int t_roll);
 
-    string currentCategory();
+    std::string currentCategory();
 
   private:
-    vector<string> m_players;
+    std::vector<std::string> m_players;
 
     int m_places[6];
     int m_purses[6];
 
     bool m_inPenaltyBox[6];
 
-    list<string> m_popQuestions;
-    list<string> m_scienceQuestions;
-    list<string> m_sportsQuestions;
-    list<string> m_rockQuestions;
+    std::list<std::string> m_popQuestions;
+    std::list<std::string> m_scienceQuestions;
+    std::list<std::string> m_sportsQuestions;
+    std::list<std::string> m_rockQuestions;
 
     int m_currentPlayer;
     bool m_isGettingOutOfPenaltyBox;
