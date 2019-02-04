@@ -17,7 +17,9 @@ TEST (GameConstructorTest, CreateQuestions)
 TEST (GameConstructorTest, CurrentPlayer)
 {
   Game testGame;
-  ASSERT_EQ(0, testGame.getCurrentPlayer());
+  Player alice{"Alice"};
+  testGame.add(alice);
+  ASSERT_EQ("Alice", testGame.getPlayer(testGame.getCurrentPlayerId()).getName());
 }
 
 TEST (IsPlayable, NotPlayable)
@@ -295,6 +297,51 @@ TEST (Add, AddPlayer)
   ASSERT_EQ(0, testGame.getPlayer(1).getPurse());
   ASSERT_EQ(false, testGame.getPlayer(0).getIsInPenaltyBox());
   ASSERT_EQ(false, testGame.getPlayer(1).getIsInPenaltyBox());
+}
+
+TEST (NextPlayer, OnePlayer)
+{
+  Game testGame;
+  Player alice{"Alice"};
+  testGame.add(alice);
+  ASSERT_EQ(0, testGame.getCurrentPlayerId());
+  testGame.changeCurrentPlayerToNextPlayer();
+  ASSERT_EQ(0, testGame.getCurrentPlayerId());
+  testGame.changeCurrentPlayerToNextPlayer();
+  ASSERT_EQ(0, testGame.getCurrentPlayerId());
+  testGame.changeCurrentPlayerToNextPlayer();
+  ASSERT_EQ(0, testGame.getCurrentPlayerId());
+}
+
+TEST (NextPlayer, MorePlayers)
+{
+  Game testGame;
+  Player alice{"Alice"};  
+  testGame.add(alice);
+  Player bob{"Bob"};  
+  testGame.add(bob);
+  Player mallory{"Mallory"};  
+  testGame.add(mallory);
+  Player trudy{"Trudy"};  
+  testGame.add(trudy);
+  
+  ASSERT_EQ(0, testGame.getCurrentPlayerId());
+  testGame.changeCurrentPlayerToNextPlayer();
+  ASSERT_EQ(1, testGame.getCurrentPlayerId());
+  testGame.changeCurrentPlayerToNextPlayer();
+  ASSERT_EQ(2, testGame.getCurrentPlayerId());
+  testGame.changeCurrentPlayerToNextPlayer();
+  ASSERT_EQ(3, testGame.getCurrentPlayerId());
+  testGame.changeCurrentPlayerToNextPlayer();
+  ASSERT_EQ(0, testGame.getCurrentPlayerId());
+  testGame.changeCurrentPlayerToNextPlayer();
+  ASSERT_EQ(1, testGame.getCurrentPlayerId());
+  testGame.changeCurrentPlayerToNextPlayer();
+  ASSERT_EQ(2, testGame.getCurrentPlayerId());
+  testGame.changeCurrentPlayerToNextPlayer();
+  ASSERT_EQ(3, testGame.getCurrentPlayerId());
+  testGame.changeCurrentPlayerToNextPlayer();
+  ASSERT_EQ(0, testGame.getCurrentPlayerId());
 }
 
 int main(int argc, char **argv)
