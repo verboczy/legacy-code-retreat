@@ -267,7 +267,7 @@ void Game::wrongAnswer()
 
 bool Game::didPlayerWin()
 {
-  return !(m_players[m_currentPlayerId].m_purse == 6);
+  return m_players[m_currentPlayerId].m_purse >= 6;
 }
 
 

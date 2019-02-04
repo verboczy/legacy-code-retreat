@@ -416,6 +416,22 @@ TEST (AskQuestion, RockQuestions)
   ASSERT_EQ("Rock Question 49", testGame.getRockQuestion(0));
 }
 
+TEST (DidPlayerWin, WinIfGreaterOrEqualToSix)
+{
+  Game testGame;
+  Player alice{"Alice"};
+  testGame.add(alice);
+  for (int i = 0; i < 5; ++i)
+  {    
+    testGame.roll(1);
+    testGame.wasCorrectlyAnswered();
+    ASSERT_EQ(false, testGame.didPlayerWin());
+  }
+  testGame.roll(1);
+  testGame.wasCorrectlyAnswered();
+  ASSERT_EQ(true, testGame.didPlayerWin());
+}
+
 int main(int argc, char **argv)
 {
   testing::InitGoogleTest(&argc, argv);
