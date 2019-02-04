@@ -101,7 +101,7 @@ bool Game::isPlayable()
   return (howManyPlayers() >= 2);
 }
 
-bool Game::add(std::string t_playerName){
+void Game::add(std::string t_playerName){
   m_players.push_back(t_playerName);
   m_places[howManyPlayers()] = 0;
   m_purses[howManyPlayers()] = 0;
@@ -109,8 +109,6 @@ bool Game::add(std::string t_playerName){
 
   std::clog << t_playerName << " was added" << std::endl;
   std::clog << "Number of player(s): " << m_players.size() << std::endl;
-  
-  return true;
 }
 
 int Game::howManyPlayers()
@@ -255,7 +253,7 @@ bool Game::wasCorrectlyAnswered()
   }
 }
 
-bool Game::wrongAnswer()
+void Game::wrongAnswer()
 {
   std::cout << "Question was incorrectly answered" << std::endl;
   std::cout << m_players[m_currentPlayer] << " was sent to the penalty box" << std::endl;
@@ -266,8 +264,6 @@ bool Game::wrongAnswer()
   {    
     m_currentPlayer = 0;
   }
-  
-  return true;
 }
 
 bool Game::didPlayerWin()

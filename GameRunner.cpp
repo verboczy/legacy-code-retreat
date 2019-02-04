@@ -18,7 +18,7 @@ int main()
 
 		if (rand() % 9 == 7)
 		{
-			notAWinner = aGame.wrongAnswer();
+			aGame.wrongAnswer();
 		}
 		else
 		{

@@ -24,13 +24,13 @@ class Game{
     bool isInPenaltyBox(int t_index);
     bool getIsGettingOutOfPenaltyBox();
     
+    void add(std::string t_playerName);
     bool isPlayable();
-    bool add(std::string t_playerName);
-    bool wasCorrectlyAnswered();
-    bool wrongAnswer();
-
     int howManyPlayers();
     void roll(int t_roll);
+    
+    bool wasCorrectlyAnswered();
+    void wrongAnswer();
 
     std::string currentCategory();
 
