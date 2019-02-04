@@ -64,11 +64,19 @@ TEST (Add, InitializePlayer)
   ASSERT_EQ("Alice", testGame.getPlayer(0).getName());
   ASSERT_EQ(0, testGame.getPlace(0));
   ASSERT_EQ(0, testGame.getPurse(0));
-  // This found a bug! This is wrong:
-  // inPenaltyBox[howManyPlayers()] = false;
-  // howManyPlayers() - 1 would be better
-  // Also the place and purse initialization is wrong.
   ASSERT_EQ(false, testGame.isInPenaltyBox(0));
+}
+
+TEST (Add, NoSameNames)
+{
+  Game testGame;
+  ASSERT_EQ(0, testGame.howManyPlayers());
+  Player alice{"Alice"};
+  testGame.add(alice);
+  ASSERT_EQ(1, testGame.howManyPlayers());
+  Player alice2{"Alice"};
+  testGame.add(alice2);
+  ASSERT_EQ(1, testGame.howManyPlayers());
 }
 
 TEST (HowManyPlayers, HowMany)
