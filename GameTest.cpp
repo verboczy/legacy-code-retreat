@@ -344,6 +344,70 @@ TEST (NextPlayer, MorePlayers)
   ASSERT_EQ(0, testGame.getCurrentPlayerId());
 }
 
+TEST (AskQuestion, PopQuestions)
+{
+  Game testGame;
+  Player alice{"Alice"};
+  testGame.add(alice);
+  ASSERT_EQ("Pop Question 0", testGame.getPopQuestion(0));
+  for (int i = 1; i < 50; ++i)
+  {
+    testGame.askQuestion();
+    std::string expected = "Pop Question " + std::to_string(i);
+    ASSERT_EQ(expected, testGame.getPopQuestion(0));
+  }
+  ASSERT_EQ("Pop Question 49", testGame.getPopQuestion(0));
+}
+
+TEST (AskQuestion, ScienceQuestions)
+{
+  Game testGame;
+  Player alice{"Alice"};
+  testGame.add(alice);
+  testGame.roll(1);
+  ASSERT_EQ("Science Question 1", testGame.getScienceQuestion(0));
+  for (int i = 2; i < 50; ++i)
+  {
+    testGame.askQuestion();
+    std::string expected = "Science Question " + std::to_string(i);
+    ASSERT_EQ(expected, testGame.getScienceQuestion(0));
+  }
+  ASSERT_EQ("Science Question 49", testGame.getScienceQuestion(0));
+}
+
+TEST (AskQuestion, SportsQuestions)
+{
+  Game testGame;
+  Player alice{"Alice"};
+  testGame.add(alice);
+  testGame.roll(1);
+  testGame.roll(1);
+  ASSERT_EQ("Sports Question 1", testGame.getSportsQuestion(0));
+  for (int i = 2; i < 50; ++i)
+  {
+    testGame.askQuestion();
+    std::string expected = "Sports Question " + std::to_string(i);
+    ASSERT_EQ(expected, testGame.getSportsQuestion(0));
+  }
+  ASSERT_EQ("Sports Question 49", testGame.getSportsQuestion(0));
+}
+
+TEST (AskQuestion, RockQuestions)
+{
+  Game testGame;
+  Player alice{"Alice"};
+  testGame.add(alice);
+  testGame.roll(3);
+  ASSERT_EQ("Rock Question 1", testGame.getRockQuestion(0));
+  for (int i = 2; i < 50; ++i)
+  {
+    testGame.askQuestion();
+    std::string expected = "Rock Question " + std::to_string(i);
+    ASSERT_EQ(expected, testGame.getRockQuestion(0));
+  }
+  ASSERT_EQ("Rock Question 49", testGame.getRockQuestion(0));
+}
+
 int main(int argc, char **argv)
 {
   testing::InitGoogleTest(&argc, argv);
