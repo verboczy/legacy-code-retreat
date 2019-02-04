@@ -40,13 +40,9 @@ class Game
     std::string getScienceQuestion(int index);
     std::string getSportsQuestion(int t_index);
     std::string getRockQuestion(int t_index);
+    
     Player getPlayer(int t_index);
-    
-    int getPlace(int t_index);
-    int getPurse(int t_index);
-    int getCurrentPlayerId();
-    
-    bool isInPenaltyBox(int t_index);
+    int getCurrentPlayerId();        
     bool getIsGettingOutOfPenaltyBox();
     
     bool isPlayable();

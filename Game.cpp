@@ -90,21 +90,6 @@ Player Game::getPlayer(int t_index)
   return m_players[t_index];
 }
 
-int Game::getPlace(int t_index)
-{
-  return m_players[t_index].m_place;
-}
-
-int Game::getPurse(int t_index)
-{
-  return m_players[t_index].m_purse;
-}
-
-bool Game::isInPenaltyBox(int t_index)
-{
-  return m_players[t_index].m_isInPenaltyBox;
-}
-
 bool Game::getIsGettingOutOfPenaltyBox()
 {
   return m_isGettingOutOfPenaltyBox;
