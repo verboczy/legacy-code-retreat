@@ -52,6 +52,8 @@ std::string Game::getScienceQuestion(int t_index)
     }
     ++count;
   }
+  
+  return "";
 }
 
 std::string Game::getSportsQuestion(int t_index)
@@ -65,6 +67,8 @@ std::string Game::getSportsQuestion(int t_index)
     }
     ++count;
   }
+  
+  return "";
 }
 
 std::string Game::getRockQuestion(int t_index)
@@ -78,6 +82,8 @@ std::string Game::getRockQuestion(int t_index)
     }
     ++count;
   }
+  
+  return "";
 }
 
 int Game::getCurrentPlayerId()
