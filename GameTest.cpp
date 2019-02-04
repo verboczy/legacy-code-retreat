@@ -5,7 +5,7 @@
 TEST (GameConstructorTest, CreateQuestions)
 {
   Game testGame;
-  for (int i = 0; i < 50; i++)
+  for (int i = 0; i < 50; ++i)
   {
     ASSERT_EQ("Pop Question " + std::to_string(i), testGame.getPopQuestion(i));
     ASSERT_EQ("Science Question " + std::to_string(i), testGame.getScienceQuestion(i));

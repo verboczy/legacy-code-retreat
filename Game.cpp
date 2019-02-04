@@ -4,7 +4,7 @@
 
 Game::Game() : m_currentPlayer(0), m_places({}), m_purses({})
 {
-  for (int i = 0; i < 50; i++)
+  for (int i = 0; i < 50; ++i)
   {
     std::string iToString = std::to_string(i);
     m_popQuestions.push_back("Pop Question " + iToString);
@@ -17,52 +17,52 @@ Game::Game() : m_currentPlayer(0), m_places({}), m_purses({})
 std::string Game::getPopQuestion(int t_index)
 {
   int count = 0;
-  for (auto it = m_popQuestions.begin(); it != m_popQuestions.end(); it++)
+  for (auto it = m_popQuestions.begin(); it != m_popQuestions.end(); ++it)
   {
     if (count == t_index)
     {
       return *it;
     }
-    count++;
+    ++count;
   }
 }
 
 std::string Game::getScienceQuestion(int t_index)
 {
   int count = 0;
-  for (auto it = m_scienceQuestions.begin(); it != m_scienceQuestions.end(); it++)
+  for (auto it = m_scienceQuestions.begin(); it != m_scienceQuestions.end(); ++it)
   {
     if (count == t_index)
     {
       return *it;
     }
-    count++;
+    ++count;
   }
 }
 
 std::string Game::getSportsQuestion(int t_index)
 {
   int count = 0;
-  for (auto it = m_sportsQuestions.begin(); it != m_sportsQuestions.end(); it++)
+  for (auto it = m_sportsQuestions.begin(); it != m_sportsQuestions.end(); ++it)
   {
     if (count == t_index)
     {
       return *it;
     }
-    count++;
+    ++count;
   }
 }
 
 std::string Game::getRockQuestion(int t_index)
 {
   int count = 0;
-  for (auto it = m_rockQuestions.begin(); it != m_rockQuestions.end(); it++)
+  for (auto it = m_rockQuestions.begin(); it != m_rockQuestions.end(); ++it)
   {
     if (count == t_index)
     {
       return *it;
     }
-    count++;
+    ++count;
   }
 }
 
@@ -210,12 +210,12 @@ bool Game::wasCorrectlyAnswered()
     if (m_isGettingOutOfPenaltyBox)
     {
       std::cout << "Answer was correct!!!!" << std::endl;
-      m_purses[m_currentPlayer]++;
+      ++m_purses[m_currentPlayer];
       std::cout << m_players[m_currentPlayer] << " now has " 
                 << m_purses[m_currentPlayer] <<  " Gold Coins." << std::endl;
 
       bool winner = didPlayerWin();
-      m_currentPlayer++;
+      ++m_currentPlayer;
       if (m_currentPlayer == m_players.size())
       {
         m_currentPlayer = 0;
@@ -225,7 +225,7 @@ bool Game::wasCorrectlyAnswered()
     }
     else
     {
-      m_currentPlayer++;
+      ++m_currentPlayer;
       if (m_currentPlayer == m_players.size())
       {
         m_currentPlayer = 0;
@@ -238,14 +238,14 @@ bool Game::wasCorrectlyAnswered()
   {
 
     std::cout << "Answer was corrent!!!!" << std::endl;
-    m_purses[m_currentPlayer]++;
+    ++m_purses[m_currentPlayer];
     std::cout << m_players[m_currentPlayer]
         << " now has "
         << m_purses[m_currentPlayer]
       << " Gold Coins." << std::endl;
 
     bool winner = didPlayerWin();
-    m_currentPlayer++;
+    ++m_currentPlayer;
     if (m_currentPlayer == m_players.size())
     {
       m_currentPlayer = 0;
@@ -261,7 +261,7 @@ bool Game::wrongAnswer()
   std::cout << m_players[m_currentPlayer] << " was sent to the penalty box" << std::endl;
   m_inPenaltyBox[m_currentPlayer] = true;
 
-  m_currentPlayer++;
+  ++m_currentPlayer;
   if (m_currentPlayer == m_players.size())
   {    
     m_currentPlayer = 0;
