@@ -239,6 +239,34 @@ TEST (WrongAnswer, GetPenalty)
   ASSERT_EQ(true, testGame.isInPenaltyBox(0));
 }
 
+TEST (Player, PlayerConstructor)
+{
+  Player alice{"Alice"};
+  ASSERT_EQ("Alice", testGame.getPlayer(0).getName());
+  ASSERT_EQ(0, testGame.getPlayer(0).getPlace());
+  ASSERT_EQ(0, testGame.getPlayer(0).getPurse());
+  ASSERT_EQ(false, testGame.getPlayer(0).getIsInPenaltyBox());
+}
+
+TEST (Add, AddPlayer)
+{
+  Game testGame;
+  ASSERT_EQ(0, testGame.howManyPlayers());
+  Player alice{"Alice"};
+  testGame.add(alice);
+  ASSERT_EQ(1, testGame.howManyPlayers());
+  Player bob{"Bob"};
+  ASSERT_EQ(2, testGame.howManyPlayers());
+  ASSERT_EQ("Alice", testGame.getPlayer(0).getName());
+  ASSERT_EQ("Bob", testGame.getPlayer(1).getName());
+  ASSERT_EQ(0, testGame.getPlayer(0).getPlace());
+  ASSERT_EQ(0, testGame.getPlayer(1).getPlace());
+  ASSERT_EQ(0, testGame.getPlayer(0).getPurse());
+  ASSERT_EQ(0, testGame.getPlayer(1).getPurse());
+  ASSERT_EQ(false, testGame.getPlayer(0).getIsInPenaltyBox());
+  ASSERT_EQ(false, testGame.getPlayer(1).getIsInPenaltyBox());
+}
+
 int main(int argc, char **argv)
 {
   testing::InitGoogleTest(&argc, argv);
