@@ -1,10 +1,10 @@
-#include <iostream>
+#ifndef GAME_H
+#define GAME_H
+
 #include <list>
 #include <vector>
+#include <string>
 using namespace std;
-
-#ifndef GAME_H_
-#define GAME_H_
 
 class Game{
   public:
@@ -56,4 +56,4 @@ class Game{
     bool didPlayerWin();
 };
 
-#endif /* GAME_H_ */
+#endif // GAME_H_
