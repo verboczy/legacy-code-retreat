@@ -1,27 +1,16 @@
 ﻿#include "Game.h"
-#include <stdio.h>
-#include <stdlib.h>
+
 #include <iostream>
-#include <sstream>
 
 Game::Game() : m_currentPlayer(0), m_places({}), m_purses({})
 {
   for (int i = 0; i < 50; i++)
   {
-    std::ostringstream oss (std::ostringstream::out);
-    oss << "Pop Question " << i;
-    
-    m_popQuestions.push_back(oss.str());
-
-    char str[255];
-    sprintf(str, "Science Question %d", i);
-    m_scienceQuestions.push_back(str);
-
-    char str1[255];
-    sprintf(str1, "Sports Question %d", i);
-    m_sportsQuestions.push_back(str1);
-
-    m_rockQuestions.push_back(createRockQuestion(i));
+    std::string iToString = std::to_string(i);
+    m_popQuestions.push_back("Pop Question " + iToString);
+    m_scienceQuestions.push_back("Science Question " + iToString);
+    m_sportsQuestions.push_back("Sports Question " + iToString);    
+    m_rockQuestions.push_back("Rock Question " + iToString);
   }
 }
 
@@ -75,13 +64,6 @@ std::string Game::getRockQuestion(int t_index)
     }
     count++;
   }
-}
-
-std::string Game::createRockQuestion(int t_index)
-{
-  char indexStr[127];
-  sprintf(indexStr, "Rock Question %d", t_index);
-  return indexStr;
 }
 
 int Game::getCurrentPlayer()
