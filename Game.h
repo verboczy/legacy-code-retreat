@@ -7,52 +7,53 @@ using namespace std;
 #define GAME_H_
 
 class Game{
+  public:
+    Game();
+    
+    string createRockQuestion(int t_index);
+    
+    string getPopQuestion(int t_index);
+    string getScienceQuestion(int index);
+    string getSportsQuestion(int t_index);
+    string getRockQuestion(int t_index);
+    string getPlayer(int t_index);
+    
+    int getPlace(int t_index);
+    int getPurse(int t_index);
+    int getCurrentPlayer();
+    
+    bool isInPenaltyBox(int t_index);
+    bool getIsGettingOutOfPenaltyBox();
+    
+    bool isPlayable();
+    bool add(string t_playerName);
+    bool wasCorrectlyAnswered();
+    bool wrongAnswer();
 
-		private:
-			vector<string> players;
+    int howManyPlayers();
+    void roll(int t_roll);
 
-			int places[6];
-			int purses[6];
+    string currentCategory();
 
-			bool inPenaltyBox[6];
+  private:
+    vector<string> m_players;
 
-			list<string> popQuestions;
-			list<string> scienceQuestions;
-			list<string> sportsQuestions;
-			list<string> rockQuestions;
+    int m_places[6];
+    int m_purses[6];
 
-			int currentPlayer;
-			bool isGettingOutOfPenaltyBox;
+    bool m_inPenaltyBox[6];
 
-public:
-	Game();
-  string getPopQuestion(int index);
-  string getScienceQuestion(int index);
-  string getSportsQuestion(int index);
-  string getRockQuestion(int index);
-	string createRockQuestion(int index);
-  string getPlayer(int index);
-  int getPlace(int index);
-  int getPurse(int index);
-  bool isInPenaltyBox(int index);
-  bool getIsGettingOutOfPenaltyBox();
-  int getCurrentPlayer();
-	bool isPlayable();
-	bool add(string playerName);
+    list<string> m_popQuestions;
+    list<string> m_scienceQuestions;
+    list<string> m_sportsQuestions;
+    list<string> m_rockQuestions;
 
-	int howManyPlayers();
-	void roll(int roll);
+    int m_currentPlayer;
+    bool m_isGettingOutOfPenaltyBox;
 
-	string currentCategory();
-	private: 
     void askQuestion();
 
-				public:
-					bool wasCorrectlyAnswered();
-					bool wrongAnswer();
-
-private:
-	bool didPlayerWin();
+    bool didPlayerWin();
 };
 
 #endif /* GAME_H_ */
