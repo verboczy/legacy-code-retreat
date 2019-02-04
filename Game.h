@@ -5,7 +5,27 @@
 #include <vector>
 #include <string>
 
-class Player;
+class Player
+{
+  friend class Game;
+  public:
+    Player(std::string t_name);
+    std::string getName();
+    int getPurse();
+    int getPlace();
+    bool getIsInPenaltyBox();
+    
+    bool operator==(Player const & t_rhs);
+    bool operator!=(Player const & t_rhs);
+    
+    friend std::ostream& operator<<(std::ostream& t_os, Player const & t_player);
+    
+  private:
+    std::string m_name;
+    int m_purse;
+    int m_place;
+    bool m_isInPenaltyBox;
+};
 
 class Game
 {
@@ -22,13 +42,14 @@ class Game
     
     int getPlace(int t_index);
     int getPurse(int t_index);
-    int getCurrentPlayer();
+    int getCurrentPlayerId();
     
     bool isInPenaltyBox(int t_index);
     bool getIsGettingOutOfPenaltyBox();
     
-    void add(Player t_player);
     bool isPlayable();
+    void add(Player t_player);
+    bool isPlayingAlready(Player t_player);
     int howManyPlayers();
     void roll(int t_roll);
     
@@ -36,7 +57,8 @@ class Game
     void wrongAnswer();
 
     std::string getCurrentCategory();
-
+    void changeCurrentPlayerToNextPlayer();
+    
   private:
     std::vector<Player> m_players;
     std::vector<std::string> m_currentCategory;
@@ -46,31 +68,12 @@ class Game
     std::list<std::string> m_sportsQuestions;
     std::list<std::string> m_rockQuestions;
 
-    int m_currentPlayer;
+    int m_currentPlayerId;
     bool m_isGettingOutOfPenaltyBox;
 
     void askQuestion();
 
     bool didPlayerWin();
-};
-
-class Player
-{
-  friend class Game;
-  public:
-    Player(std::string t_name);
-    std::string getName();
-    int getPurse();
-    int getPlace();
-    bool getIsInPenaltyBox();
-    
-    friend std::ostream& operator<<(std::ostream& t_os, Player const & t_player);
-    
-  private:
-    std::string m_name;
-    int m_purse;
-    int m_place;
-    bool m_isInPenaltyBox;
 };
 
 #endif // GAME_H_
