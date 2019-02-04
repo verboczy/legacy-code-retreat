@@ -67,7 +67,7 @@ class Game
     std::list<std::string> m_sportsQuestions;
     std::list<std::string> m_rockQuestions;
 
-    int m_currentPlayerId;
+    unsigned int m_currentPlayerId;
     bool m_isGettingOutOfPenaltyBox;
 
 
