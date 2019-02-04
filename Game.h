@@ -58,6 +58,7 @@ class Game
 
     std::string getCurrentCategory();
     void changeCurrentPlayerToNextPlayer();
+    void askQuestion();
     
   private:
     std::vector<Player> m_players;
@@ -71,7 +72,6 @@ class Game
     int m_currentPlayerId;
     bool m_isGettingOutOfPenaltyBox;
 
-    void askQuestion();
 
     bool didPlayerWin();
 };

@@ -209,17 +209,17 @@ void Game::askQuestion()
     std::cout << m_popQuestions.front() << std::endl;
     m_popQuestions.pop_front();
   }
-  if (getCurrentCategory() == "Science")
+  else if (getCurrentCategory() == "Science")
   {
     std::cout << m_scienceQuestions.front() << std::endl;
     m_scienceQuestions.pop_front();
   }
-  if (getCurrentCategory() == "Sports")
+  else if (getCurrentCategory() == "Sports")
   {
     std::cout << m_sportsQuestions.front() << std::endl;
     m_sportsQuestions.pop_front();
   }
-  if (getCurrentCategory() == "Rock")
+  else if (getCurrentCategory() == "Rock")
   {
     std::cout << m_rockQuestions.front() << std::endl;
     m_rockQuestions.pop_front();
