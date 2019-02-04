@@ -32,10 +32,11 @@ class Game{
     bool wasCorrectlyAnswered();
     void wrongAnswer();
 
-    std::string currentCategory();
+    std::string getCurrentCategory();
 
   private:
     std::vector<std::string> m_players;
+    std::vector<std::string> m_currentCategory;
 
     int m_places[6];
     int m_purses[6];

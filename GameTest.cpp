@@ -138,15 +138,15 @@ TEST (CurrentCategory, Pop)
   Game testGame;
   testGame.add("Alice");
   // 0
-  ASSERT_EQ("Pop", testGame.currentCategory());
+  ASSERT_EQ("Pop", testGame.getCurrentCategory());
   // 4
   testGame.roll(3);
   testGame.roll(1);
-  ASSERT_EQ("Pop", testGame.currentCategory());
+  ASSERT_EQ("Pop", testGame.getCurrentCategory());
   // 8
   testGame.roll(3);
   testGame.roll(1);
-  ASSERT_EQ("Pop", testGame.currentCategory());
+  ASSERT_EQ("Pop", testGame.getCurrentCategory());
 }
 
 TEST (CurrentCategory, Science)
@@ -155,15 +155,15 @@ TEST (CurrentCategory, Science)
   testGame.add("Alice");
   // 1
   testGame.roll(1);
-  ASSERT_EQ("Science", testGame.currentCategory());
+  ASSERT_EQ("Science", testGame.getCurrentCategory());
   // 5
   testGame.roll(3);
   testGame.roll(1);  
-  ASSERT_EQ("Science", testGame.currentCategory());
+  ASSERT_EQ("Science", testGame.getCurrentCategory());
   // 9
   testGame.roll(3);
   testGame.roll(1);
-  ASSERT_EQ("Science", testGame.currentCategory());
+  ASSERT_EQ("Science", testGame.getCurrentCategory());
 }
 
 TEST (CurrentCategory, Sports)
@@ -173,15 +173,15 @@ TEST (CurrentCategory, Sports)
   // 2
   testGame.roll(1);
   testGame.roll(1);
-  ASSERT_EQ("Sports", testGame.currentCategory());
+  ASSERT_EQ("Sports", testGame.getCurrentCategory());
   // 6
   testGame.roll(3);
   testGame.roll(1);  
-  ASSERT_EQ("Sports", testGame.currentCategory());
+  ASSERT_EQ("Sports", testGame.getCurrentCategory());
   // 10
   testGame.roll(3);
   testGame.roll(1);
-  ASSERT_EQ("Sports", testGame.currentCategory());
+  ASSERT_EQ("Sports", testGame.getCurrentCategory());
 }
 
 TEST (CurrentCategory, Rock)
@@ -190,15 +190,15 @@ TEST (CurrentCategory, Rock)
   testGame.add("Alice");
   // 3
   testGame.roll(3);
-  ASSERT_EQ("Rock", testGame.currentCategory());
+  ASSERT_EQ("Rock", testGame.getCurrentCategory());
   // 7
   testGame.roll(3);
   testGame.roll(1);  
-  ASSERT_EQ("Rock", testGame.currentCategory());
+  ASSERT_EQ("Rock", testGame.getCurrentCategory());
   // 11
   testGame.roll(3);
   testGame.roll(1);
-  ASSERT_EQ("Rock", testGame.currentCategory());
+  ASSERT_EQ("Rock", testGame.getCurrentCategory());
 }
 
 TEST (WasCorrectlyAnswered, InPenaltyGetOut)

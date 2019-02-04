@@ -4,6 +4,20 @@
 
 Game::Game() : m_currentPlayer(0), m_places({}), m_purses({})
 {
+  m_currentCategory.reserve(12);
+  m_currentCategory.push_back("Pop");
+  m_currentCategory.push_back("Science");
+  m_currentCategory.push_back("Sports");
+  m_currentCategory.push_back("Rock");
+  m_currentCategory.push_back("Pop");
+  m_currentCategory.push_back("Science");
+  m_currentCategory.push_back("Sports");
+  m_currentCategory.push_back("Rock");
+  m_currentCategory.push_back("Pop");
+  m_currentCategory.push_back("Science");
+  m_currentCategory.push_back("Sports");
+  m_currentCategory.push_back("Rock");
+  
   for (int i = 0; i < 50; ++i)
   {
     std::string iToString = std::to_string(i);
@@ -96,6 +110,16 @@ bool Game::getIsGettingOutOfPenaltyBox()
   return m_isGettingOutOfPenaltyBox;
 }
 
+std::string Game::getCurrentCategory()
+{
+  int place = m_places[m_currentPlayer];
+  if (place > 11)
+  {
+    return "Rock";
+  }
+  return m_currentCategory[place];
+}
+
 bool Game::isPlayable()
 {
   return (howManyPlayers() >= 2);
@@ -137,7 +161,7 @@ void Game::roll(int t_roll)
 
       std::cout << m_players[m_currentPlayer] << "'s new location is " 
                 << m_places[m_currentPlayer] << std::endl;
-      std::cout << "The category is " << currentCategory() << std::endl;
+      std::cout << "The category is " << getCurrentCategory() << std::endl;
       askQuestion();
     }
     else
@@ -157,48 +181,33 @@ void Game::roll(int t_roll)
 
     std::cout << m_players[m_currentPlayer] << "'s new location is " 
               << m_places[m_currentPlayer] << std::endl;
-    std::cout << "The category is " << currentCategory() << std::endl;
+    std::cout << "The category is " << getCurrentCategory() << std::endl;
     askQuestion();
   }
 }
 
 void Game::askQuestion()
 {
-  if (currentCategory() == "Pop")
+  if (getCurrentCategory() == "Pop")
   {
     std::cout << m_popQuestions.front() << std::endl;
     m_popQuestions.pop_front();
   }
-  if (currentCategory() == "Science")
+  if (getCurrentCategory() == "Science")
   {
     std::cout << m_scienceQuestions.front() << std::endl;
     m_scienceQuestions.pop_front();
   }
-  if (currentCategory() == "Sports")
+  if (getCurrentCategory() == "Sports")
   {
     std::cout << m_sportsQuestions.front() << std::endl;
     m_sportsQuestions.pop_front();
   }
-  if (currentCategory() == "Rock")
+  if (getCurrentCategory() == "Rock")
   {
     std::cout << m_rockQuestions.front() << std::endl;
     m_rockQuestions.pop_front();
   }
-}
-
-std::string Game::currentCategory()
-{
-  if (m_places[m_currentPlayer] == 0) return "Pop";
-  if (m_places[m_currentPlayer] == 4) return "Pop";
-  if (m_places[m_currentPlayer] == 8) return "Pop";
-  if (m_places[m_currentPlayer] == 1) return "Science";
-  if (m_places[m_currentPlayer] == 5) return "Science";
-  if (m_places[m_currentPlayer] == 9) return "Science";
-  if (m_places[m_currentPlayer] == 2) return "Sports";
-  if (m_places[m_currentPlayer] == 6) return "Sports";
-  if (m_places[m_currentPlayer] == 10) return "Sports";
-  
-  return "Rock";
 }
 
 bool Game::wasCorrectlyAnswered()
