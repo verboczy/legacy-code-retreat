@@ -1,298 +1,356 @@
 ﻿#include "Game.h"
-#include <stdio.h>
-#include <stdlib.h>
+
 #include <iostream>
-#include <sstream>
 
-using namespace std;
-
-Game::Game() : m_currentPlayer(0), m_places({}), m_purses({})
+// Parameterless constructor for Game. 
+// It initialises current playr to 0, and is getting out of penalty box to false.
+Game::Game() : m_currentPlayerId{0}, m_isGettingOutOfPenaltyBox{false}
 {
-  for (int i = 0; i < 50; i++)
+  // Create categories on the place
+  m_currentCategory.reserve(PLACE_SIZE);
+  m_currentCategory.push_back("Pop");
+  m_currentCategory.push_back("Science");
+  m_currentCategory.push_back("Sports");
+  m_currentCategory.push_back("Rock");
+  m_currentCategory.push_back("Pop");
+  m_currentCategory.push_back("Science");
+  m_currentCategory.push_back("Sports");
+  m_currentCategory.push_back("Rock");
+  m_currentCategory.push_back("Pop");
+  m_currentCategory.push_back("Science");
+  m_currentCategory.push_back("Sports");
+  m_currentCategory.push_back("Rock");
+  // Add questions to categories
+  for (int i = 0; i < 50; ++i)
   {
-    ostringstream oss (ostringstream::out);
-    oss << "Pop Question " << i;
-    
-    m_popQuestions.push_back(oss.str());
-
-    char str[255];
-    sprintf(str, "Science Question %d", i);
-    m_scienceQuestions.push_back(str);
-
-    char str1[255];
-    sprintf(str1, "Sports Question %d", i);
-    m_sportsQuestions.push_back(str1);
-
-    m_rockQuestions.push_back(createRockQuestion(i));
+    std::string iToString = std::to_string(i);
+    m_popQuestions.push_back("Pop Question " + iToString);
+    m_scienceQuestions.push_back("Science Question " + iToString);
+    m_sportsQuestions.push_back("Sports Question " + iToString);    
+    m_rockQuestions.push_back("Rock Question " + iToString);
   }
 }
 
-string Game::getPopQuestion(int t_index)
+// Returns the index-th pop question.
+std::string Game::getPopQuestion(int t_index)
 {
   int count = 0;
-  for (auto it = m_popQuestions.begin(); it != m_popQuestions.end(); it++)
+  for (auto it = m_popQuestions.begin(); it != m_popQuestions.end(); ++it)
   {
     if (count == t_index)
     {
       return *it;
     }
-    count++;
-  }
+    ++count;
+  }  
+  return "";
 }
 
-string Game::getScienceQuestion(int t_index)
+// Returns the index-th science question.
+std::string Game::getScienceQuestion(int t_index)
 {
   int count = 0;
-  for (auto it = m_scienceQuestions.begin(); it != m_scienceQuestions.end(); it++)
+  for (auto it = m_scienceQuestions.begin(); it != m_scienceQuestions.end(); ++it)
   {
     if (count == t_index)
     {
       return *it;
     }
-    count++;
-  }
+    ++count;
+  }  
+  return "";
 }
 
-string Game::getSportsQuestion(int t_index)
+// Returns the index-th sports question.
+std::string Game::getSportsQuestion(int t_index)
 {
   int count = 0;
-  for (auto it = m_sportsQuestions.begin(); it != m_sportsQuestions.end(); it++)
+  for (auto it = m_sportsQuestions.begin(); it != m_sportsQuestions.end(); ++it)
   {
     if (count == t_index)
     {
       return *it;
     }
-    count++;
-  }
+    ++count;
+  }  
+  return "";
 }
 
-string Game::getRockQuestion(int t_index)
+// Returns the index-th rock question.
+std::string Game::getRockQuestion(int t_index)
 {
   int count = 0;
-  for (auto it = m_rockQuestions.begin(); it != m_rockQuestions.end(); it++)
+  for (auto it = m_rockQuestions.begin(); it != m_rockQuestions.end(); ++it)
   {
     if (count == t_index)
     {
       return *it;
     }
-    count++;
-  }
+    ++count;
+  }  
+  return "";
 }
 
-string Game::createRockQuestion(int t_index)
+// Returns the id of the current player.
+int Game::getCurrentPlayerId()
 {
-  char indexStr[127];
-  sprintf(indexStr, "Rock Question %d", t_index);
-  return indexStr;
+  return m_currentPlayerId;
 }
 
-int Game::getCurrentPlayer()
-{
-  return m_currentPlayer;
-}
-
-string Game::getPlayer(int t_index)
+// Returns the index-th player.
+Player Game::getPlayer(int t_index)
 {
   return m_players[t_index];
 }
 
-int Game::getPlace(int t_index)
-{
-  return m_places[t_index];
-}
-
-int Game::getPurse(int t_index)
-{
-  return m_purses[t_index];
-}
-
-bool Game::isInPenaltyBox(int t_index)
-{
-  return m_inPenaltyBox[t_index];
-}
-
+// Returns is getting out of penalty box.
 bool Game::getIsGettingOutOfPenaltyBox()
 {
   return m_isGettingOutOfPenaltyBox;
 }
 
+// Returns the current category, based on the current player's place.
+std::string Game::getCurrentCategory()
+{
+  int place = m_players[m_currentPlayerId].m_place;
+  if (place > PLACE_SIZE - 1)
+  {
+    return "Rock";
+  }
+  return m_currentCategory[place];
+}
+
+// Returns whether the game is playable. 
+// True if there are more than 2 players.
 bool Game::isPlayable()
 {
   return (howManyPlayers() >= 2);
 }
 
-bool Game::add(string t_playerName){
-  m_players.push_back(t_playerName);
-  m_places[howManyPlayers()] = 0;
-  m_purses[howManyPlayers()] = 0;
-  m_inPenaltyBox[howManyPlayers()] = false;
-
-  cout << t_playerName << " was added" << endl;
-  cout << "They are player number " << m_players.size() << endl;
-  
-  return true;
+// Adds player the players, if the player has not been added already.
+void Game::add(Player t_player){
+  if (!(isPlayingAlready(t_player)))
+  {
+    m_players.push_back(t_player);   
+    std::clog << t_player << " was added" << std::endl;
+    std::clog << "Number of player(s): " << m_players.size() << std::endl;
+  }
+  else
+  {
+    std::clog << t_player << " is already playing" << std::endl;
+  }
 }
 
+// Returns if the given player is in the players.
+bool Game::isPlayingAlready(Player const & t_player)
+{
+  for (auto it = m_players.begin(); it != m_players.end(); ++it)
+  {
+    if (*it == t_player)
+    {
+      return true;
+    }
+  }  
+  return false;
+}
+
+// Returns the number of players.
 int Game::howManyPlayers()
 {
   return m_players.size();
 }
 
-void Game::roll(int t_roll)
+// Puts the player in the next place or lets out the player 
+// from the penalty box, or not. Returns true if a question should be asked from 
+// the current player, false otherwise
+bool Game::roll(int t_roll)
 {
-  cout << m_players[m_currentPlayer] << " is the current player" << endl;
-  cout << "They have rolled a " << t_roll << endl;
+  std::cout << m_players[m_currentPlayerId] << " is the current player" << std::endl;
+  std::cout << "(s)he has rolled a " << t_roll << std::endl;
 
-  if (m_inPenaltyBox[m_currentPlayer])
+  // Current player is in penalty box
+  if (m_players[m_currentPlayerId].m_isInPenaltyBox)
   {
+    // Gets out of penalty box
     if (t_roll % 2 != 0)
     {
       m_isGettingOutOfPenaltyBox = true;
-
-      cout << m_players[m_currentPlayer] << " is getting out of the penalty box" 
-           << endl;
-      m_places[m_currentPlayer] = m_places[m_currentPlayer] + t_roll;
-      if (m_places[m_currentPlayer] > 11)
-      {
-        m_places[m_currentPlayer] = m_places[m_currentPlayer] - 12;
-      }
-
-      cout << m_players[m_currentPlayer] << "'s new location is " 
-           << m_places[m_currentPlayer] << endl;
-      cout << "The category is " << currentCategory() << endl;
-      askQuestion();
+      std::cout << m_players[m_currentPlayerId] << " is getting out of the penalty box" 
+           << std::endl;
+      incrementPlace(t_roll);
+      return true;
     }
+    // Remains in penalty box
     else
     {
-      cout << m_players[m_currentPlayer] << " is not getting out of the penalty box" 
-           << endl;
+      std::cout << m_players[m_currentPlayerId] 
+                << " is not getting out of the penalty box" << std::endl;
       m_isGettingOutOfPenaltyBox = false;
+      return false;
     }
   }
+  // Not in penalty box
   else
   {
-    m_places[m_currentPlayer] = m_places[m_currentPlayer] + t_roll;
-    if (m_places[m_currentPlayer] > 11)
-    {
-      m_places[m_currentPlayer] = m_places[m_currentPlayer] - 12;
-    }
-
-    cout << m_players[m_currentPlayer] << "'s new location is " 
-         << m_places[m_currentPlayer] << endl;
-    cout << "The category is " << currentCategory() << endl;
-    askQuestion();
+    incrementPlace(t_roll);
+    return true;
   }
 }
 
+// Adds the roll value to the current player's place.
+// It is greater, than the maximal place, then the player starts a new lap.
+void Game::incrementPlace(int t_roll)
+{
+    m_players[m_currentPlayerId].m_place = 
+      m_players[m_currentPlayerId].m_place + t_roll;
+    if (m_players[m_currentPlayerId].m_place > PLACE_SIZE - 1)
+    {
+      m_players[m_currentPlayerId].m_place = 
+        m_players[m_currentPlayerId].m_place - PLACE_SIZE;
+    }
+
+    std::cout << m_players[m_currentPlayerId] << "'s new location is " 
+              << m_players[m_currentPlayerId].m_place << std::endl;
+    std::cout << "The category is " << getCurrentCategory() << std::endl;
+}
+
+// Ask question
 void Game::askQuestion()
 {
-  if (currentCategory() == "Pop")
+  if (getCurrentCategory() == "Pop")
   {
-    cout << m_popQuestions.front() << endl;
+    std::cout << m_popQuestions.front() << std::endl;
     m_popQuestions.pop_front();
   }
-  if (currentCategory() == "Science")
+  else if (getCurrentCategory() == "Science")
   {
-    cout << m_scienceQuestions.front() << endl;
+    std::cout << m_scienceQuestions.front() << std::endl;
     m_scienceQuestions.pop_front();
   }
-  if (currentCategory() == "Sports")
+  else if (getCurrentCategory() == "Sports")
   {
-    cout << m_sportsQuestions.front() << endl;
+    std::cout << m_sportsQuestions.front() << std::endl;
     m_sportsQuestions.pop_front();
   }
-  if (currentCategory() == "Rock")
+  else if (getCurrentCategory() == "Rock")
   {
-    cout << m_rockQuestions.front() << endl;
+    std::cout << m_rockQuestions.front() << std::endl;
     m_rockQuestions.pop_front();
   }
 }
 
-string Game::currentCategory()
-{
-  if (m_places[m_currentPlayer] == 0) return "Pop";
-  if (m_places[m_currentPlayer] == 4) return "Pop";
-  if (m_places[m_currentPlayer] == 8) return "Pop";
-  if (m_places[m_currentPlayer] == 1) return "Science";
-  if (m_places[m_currentPlayer] == 5) return "Science";
-  if (m_places[m_currentPlayer] == 9) return "Science";
-  if (m_places[m_currentPlayer] == 2) return "Sports";
-  if (m_places[m_currentPlayer] == 6) return "Sports";
-  if (m_places[m_currentPlayer] == 10) return "Sports";
-  
-  return "Rock";
-}
-
+// The player answered correctly. If (s)he has enough money, 
+// then (s)he is the winner, and the game is over.
 bool Game::wasCorrectlyAnswered()
 {
-  if (m_inPenaltyBox[m_currentPlayer])
+  // Current player is in penalty box
+  if (m_players[m_currentPlayerId].m_isInPenaltyBox)
   {
+    // Gets out
     if (m_isGettingOutOfPenaltyBox)
     {
-      cout << "Answer was correct!!!!" << endl;
-      m_purses[m_currentPlayer]++;
-      cout << m_players[m_currentPlayer]
-           << " now has "
-           << m_purses[m_currentPlayer]
-        <<  " Gold Coins." << endl;
-
-      bool winner = didPlayerWin();
-      m_currentPlayer++;
-      if (m_currentPlayer == m_players.size())
-      {
-        m_currentPlayer = 0;
-      }
-
+      bool winner = correctAnswerNotRemainInPenalty();      
       return winner;
     }
+    // Remains in penalty box
     else
     {
-      m_currentPlayer++;
-      if (m_currentPlayer == m_players.size())
-      {
-        m_currentPlayer = 0;
-      }
-      
-      return true;
+      return false;
     }
   }
+  // Not in penalty box
   else
   {
-
-    cout << "Answer was corrent!!!!" << endl;
-    m_purses[m_currentPlayer]++;
-    cout << m_players[m_currentPlayer]
-        << " now has "
-        << m_purses[m_currentPlayer]
-      << " Gold Coins." << endl;
-
-    bool winner = didPlayerWin();
-    m_currentPlayer++;
-    if (m_currentPlayer == m_players.size())
-    {
-      m_currentPlayer = 0;
-    }
-
+    bool winner = correctAnswerNotRemainInPenalty();    
     return winner;
   }
 }
 
-bool Game::wrongAnswer()
+// Answer was correct, increase purse. Returns if the player has enough money.
+bool Game::correctAnswerNotRemainInPenalty()
 {
-  cout << "Question was incorrectly answered" << endl;
-  cout << m_players[m_currentPlayer] + " was sent to the penalty box" << endl;
-  m_inPenaltyBox[m_currentPlayer] = true;
-
-  m_currentPlayer++;
-  if (m_currentPlayer == m_players.size())
-  {    
-    m_currentPlayer = 0;
-  }
-  
-  return true;
+  std::cout << "Answer was correct!!!!" << std::endl;
+  ++m_players[m_currentPlayerId].m_purse;
+  std::cout << m_players[m_currentPlayerId] << " now has " 
+            << m_players[m_currentPlayerId].m_purse << " Gold Coins." << std::endl;
+  return didPlayerWin();
 }
 
+// The answer was wrong. Put the current player into the penalty box.
+void Game::wrongAnswer()
+{
+  std::cout << "Question was incorrectly answered" << std::endl;
+  std::cout << m_players[m_currentPlayerId] 
+            << " was sent to the penalty box" << std::endl;
+  m_players[m_currentPlayerId].m_isInPenaltyBox = true;
+}
+
+// Returns if the player has enough money.
 bool Game::didPlayerWin()
 {
-  return !(m_purses[m_currentPlayer] == 6);
+  return m_players[m_currentPlayerId].m_purse >= PURSE_LIMIT;
+}
+
+// Set current player to the next player.
+void Game::changeCurrentPlayerToNextPlayer()
+{
+  ++m_currentPlayerId;
+  if (m_currentPlayerId >= m_players.size())
+  {
+    m_currentPlayerId = 0;
+  }
+}
+
+/********************** Player methods **********************/
+// Player's constructor with name parameter. 
+// It initialises purse to 0,
+// place to 0,
+// and is in penalty box to false.
+Player::Player(std::string t_name) : 
+  m_name{t_name}, m_purse{0}, m_place{0}, m_isInPenaltyBox{false} 
+{
+  // Initialised everything
+}
+
+// Returns player's name.
+std::string Player::getName()
+{
+  return m_name;
+}
+
+// Returns player's purse.
+int Player::getPurse()
+{
+  return m_purse;
+}
+
+// Returns player's place.
+int Player::getPlace()
+{
+  return m_place;
+}
+
+// Returns if the player is in penalty box.
+bool Player::getIsInPenaltyBox()
+{
+  return m_isInPenaltyBox;
+}
+
+// Two players are equal if, their names are equal.
+bool Player::operator==(Player const & t_rhs)
+{
+  return (this->m_name == t_rhs.m_name);
+}
+
+// Two players are not equal, if they are not equal.
+bool Player::operator!=(Player const & t_rhs)
+{
+  return !(*this == t_rhs);
+}
+
+// Using << on a player, accesses the name.
+std::ostream& operator<<(std::ostream& t_os, Player const & t_player)
+{
+  t_os << t_player.m_name;
+  return t_os;
 }

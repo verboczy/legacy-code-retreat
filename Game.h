@@ -1,59 +1,79 @@
-#include <iostream>
+#ifndef GAME_H
+#define GAME_H
+
 #include <list>
 #include <vector>
-using namespace std;
+#include <string>
 
-#ifndef GAME_H_
-#define GAME_H_
-
-class Game{
+class Player
+{
+  friend class Game;
   public:
+    Player(std::string t_name);
+    std::string getName();
+    int getPurse();
+    int getPlace();
+    bool getIsInPenaltyBox();
+    
+    bool operator==(Player const & t_rhs);
+    bool operator!=(Player const & t_rhs);
+    
+    friend std::ostream& operator<<(std::ostream& t_os, Player const & t_player);
+    
+  private:
+    std::string m_name;
+    int m_purse;
+    int m_place;
+    bool m_isInPenaltyBox;
+};
+
+class Game
+{
+  public:
+    const int PLACE_SIZE = 12;
+    const int PURSE_LIMIT = 6;
+  
     Game();
     
-    string createRockQuestion(int t_index);
+    std::string createRockQuestion(int t_index);
     
-    string getPopQuestion(int t_index);
-    string getScienceQuestion(int index);
-    string getSportsQuestion(int t_index);
-    string getRockQuestion(int t_index);
-    string getPlayer(int t_index);
+    std::string getPopQuestion(int t_index);
+    std::string getScienceQuestion(int index);
+    std::string getSportsQuestion(int t_index);
+    std::string getRockQuestion(int t_index);
     
-    int getPlace(int t_index);
-    int getPurse(int t_index);
-    int getCurrentPlayer();
-    
-    bool isInPenaltyBox(int t_index);
+    Player getPlayer(int t_index);
+    int getCurrentPlayerId();        
     bool getIsGettingOutOfPenaltyBox();
     
     bool isPlayable();
-    bool add(string t_playerName);
-    bool wasCorrectlyAnswered();
-    bool wrongAnswer();
-
+    void add(Player t_player); // Intentionally passed by value
+    bool isPlayingAlready(Player const & t_player);
     int howManyPlayers();
-    void roll(int t_roll);
+    bool roll(int t_roll);
+    
+    bool wasCorrectlyAnswered();
+    void wrongAnswer();
 
-    string currentCategory();
-
-  private:
-    vector<string> m_players;
-
-    int m_places[6];
-    int m_purses[6];
-
-    bool m_inPenaltyBox[6];
-
-    list<string> m_popQuestions;
-    list<string> m_scienceQuestions;
-    list<string> m_sportsQuestions;
-    list<string> m_rockQuestions;
-
-    int m_currentPlayer;
-    bool m_isGettingOutOfPenaltyBox;
-
+    std::string getCurrentCategory();
+    void changeCurrentPlayerToNextPlayer();
     void askQuestion();
-
     bool didPlayerWin();
+    
+  private:
+    std::vector<Player> m_players;
+    std::vector<std::string> m_currentCategory;
+
+    std::list<std::string> m_popQuestions;
+    std::list<std::string> m_scienceQuestions;
+    std::list<std::string> m_sportsQuestions;
+    std::list<std::string> m_rockQuestions;
+
+    unsigned int m_currentPlayerId;
+    bool m_isGettingOutOfPenaltyBox;
+    
+    void incrementPlace(int t_roll);
+    bool correctAnswerNotRemainInPenalty();
 };
 
-#endif /* GAME_H_ */
+#endif // GAME_H_

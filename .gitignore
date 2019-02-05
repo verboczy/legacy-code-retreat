@@ -9,6 +9,7 @@ cmake_install.cmake
 
 # Executables
 tests
+rungame
 
 # Compiled Object files
 *.slo
