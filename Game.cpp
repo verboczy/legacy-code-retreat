@@ -161,8 +161,8 @@ void Game::roll(int t_roll)
     }
     else
     {
-      std::cout << m_players[m_currentPlayerId] << " is not getting out of the penalty box" 
-                << std::endl;
+      std::cout << m_players[m_currentPlayerId] 
+                << " is not getting out of the penalty box" << std::endl;
       m_isGettingOutOfPenaltyBox = false;
     }
   }
@@ -175,10 +175,12 @@ void Game::roll(int t_roll)
 
 void Game::incrementPlace(int t_roll)
 {
-    m_players[m_currentPlayerId].m_place = m_players[m_currentPlayerId].m_place + t_roll;
+    m_players[m_currentPlayerId].m_place = 
+      m_players[m_currentPlayerId].m_place + t_roll;
     if (m_players[m_currentPlayerId].m_place > PLACE_SIZE - 1)
     {
-      m_players[m_currentPlayerId].m_place = m_players[m_currentPlayerId].m_place - PLACE_SIZE;
+      m_players[m_currentPlayerId].m_place = 
+        m_players[m_currentPlayerId].m_place - PLACE_SIZE;
     }
 
     std::cout << m_players[m_currentPlayerId] << "'s new location is " 
@@ -238,15 +240,16 @@ bool Game::correctAnswerNotRemainInPenalty()
 {
   std::cout << "Answer was correct!!!!" << std::endl;
   ++m_players[m_currentPlayerId].m_purse;
-  std::cout << m_players[m_currentPlayerId] << " now has " << m_players[m_currentPlayerId].m_purse
-          << " Gold Coins." << std::endl;  
+  std::cout << m_players[m_currentPlayerId] << " now has " 
+            << m_players[m_currentPlayerId].m_purse << " Gold Coins." << std::endl;
   return didPlayerWin();
 }
 
 void Game::wrongAnswer()
 {
   std::cout << "Question was incorrectly answered" << std::endl;
-  std::cout << m_players[m_currentPlayerId] << " was sent to the penalty box" << std::endl;
+  std::cout << m_players[m_currentPlayerId] 
+            << " was sent to the penalty box" << std::endl;
   m_players[m_currentPlayerId].m_isInPenaltyBox = true;
   changeCurrentPlayerToNextPlayer();
 }
@@ -268,7 +271,8 @@ void Game::changeCurrentPlayerToNextPlayer()
 
 /********************** Player methods **********************/
 
-Player::Player(std::string t_name) : m_name{t_name}, m_purse{0}, m_place{0}, m_isInPenaltyBox{false} 
+Player::Player(std::string t_name) : 
+  m_name{t_name}, m_purse{0}, m_place{0}, m_isInPenaltyBox{false} 
 {
   // Initialised everything
 }
