@@ -70,6 +70,9 @@ class Game
 
     unsigned int m_currentPlayerId;
     bool m_isGettingOutOfPenaltyBox;
+    
+    void incrementPlace(int t_roll);
+    bool correctAnswerNotRemainInPenalty();
 };
 
 #endif // GAME_H_
