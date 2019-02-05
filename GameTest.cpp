@@ -373,8 +373,8 @@ TEST (AskQuestion, ScienceQuestions)
   Player alice{"Alice"};
   testGame.add(alice);
   testGame.roll(1);
-  ASSERT_EQ("Science Question 1", testGame.getScienceQuestion(0));
-  for (int i = 2; i < 50; ++i)
+  ASSERT_EQ("Science Question 0", testGame.getScienceQuestion(0));
+  for (int i = 1; i < 50; ++i)
   {
     testGame.askQuestion();
     std::string expected = "Science Question " + std::to_string(i);
@@ -390,8 +390,8 @@ TEST (AskQuestion, SportsQuestions)
   testGame.add(alice);
   testGame.roll(1);
   testGame.roll(1);
-  ASSERT_EQ("Sports Question 1", testGame.getSportsQuestion(0));
-  for (int i = 2; i < 50; ++i)
+  ASSERT_EQ("Sports Question 0", testGame.getSportsQuestion(0));
+  for (int i = 1; i < 50; ++i)
   {
     testGame.askQuestion();
     std::string expected = "Sports Question " + std::to_string(i);
@@ -406,8 +406,8 @@ TEST (AskQuestion, RockQuestions)
   Player alice{"Alice"};
   testGame.add(alice);
   testGame.roll(3);
-  ASSERT_EQ("Rock Question 1", testGame.getRockQuestion(0));
-  for (int i = 2; i < 50; ++i)
+  ASSERT_EQ("Rock Question 0", testGame.getRockQuestion(0));
+  for (int i = 1; i < 50; ++i)
   {
     testGame.askQuestion();
     std::string expected = "Rock Question " + std::to_string(i);

@@ -144,7 +144,7 @@ int Game::howManyPlayers()
   return m_players.size();
 }
 
-void Game::roll(int t_roll)
+bool Game::roll(int t_roll)
 {
   std::cout << m_players[m_currentPlayerId] << " is the current player" << std::endl;
   std::cout << "(s)he has rolled a " << t_roll << std::endl;
@@ -157,19 +157,20 @@ void Game::roll(int t_roll)
       std::cout << m_players[m_currentPlayerId] << " is getting out of the penalty box" 
            << std::endl;
       incrementPlace(t_roll);
-      askQuestion();
+      return true;
     }
     else
     {
       std::cout << m_players[m_currentPlayerId] 
                 << " is not getting out of the penalty box" << std::endl;
       m_isGettingOutOfPenaltyBox = false;
+      return false;
     }
   }
   else
   {
     incrementPlace(t_roll);
-    askQuestion();
+    return true;
   }
 }
 
@@ -218,20 +219,17 @@ bool Game::wasCorrectlyAnswered()
   {
     if (m_isGettingOutOfPenaltyBox)
     {
-      bool winner = correctAnswerNotRemainInPenalty();
-      changeCurrentPlayerToNextPlayer();
+      bool winner = correctAnswerNotRemainInPenalty();      
       return winner;
     }
     else
     {
-      changeCurrentPlayerToNextPlayer();      
       return false;
     }
   }
   else
   {
-    bool winner = correctAnswerNotRemainInPenalty();
-    changeCurrentPlayerToNextPlayer();
+    bool winner = correctAnswerNotRemainInPenalty();    
     return winner;
   }
 }
@@ -251,7 +249,6 @@ void Game::wrongAnswer()
   std::cout << m_players[m_currentPlayerId] 
             << " was sent to the penalty box" << std::endl;
   m_players[m_currentPlayerId].m_isInPenaltyBox = true;
-  changeCurrentPlayerToNextPlayer();
 }
 
 bool Game::didPlayerWin()

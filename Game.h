@@ -49,7 +49,7 @@ class Game
     void add(Player t_player); // Intentionally passed by value
     bool isPlayingAlready(Player const & t_player);
     int howManyPlayers();
-    void roll(int t_roll);
+    bool roll(int t_roll);
     
     bool wasCorrectlyAnswered();
     void wrongAnswer();
