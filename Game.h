@@ -46,8 +46,8 @@ class Game
     bool getIsGettingOutOfPenaltyBox();
     
     bool isPlayable();
-    void add(Player t_player);
-    bool isPlayingAlready(Player t_player);
+    void add(Player t_player); // Intentionally passed by value
+    bool isPlayingAlready(Player const & t_player);
     int howManyPlayers();
     void roll(int t_roll);
     

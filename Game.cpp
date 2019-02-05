@@ -127,11 +127,11 @@ void Game::add(Player t_player){
   }
 }
 
-bool Game::isPlayingAlready(Player t_player)
+bool Game::isPlayingAlready(Player const & t_player)
 {
   for (auto it = m_players.begin(); it != m_players.end(); ++it)
   {
-    if (t_player == *it)
+    if (*it == t_player)
     {
       return true;
     }
