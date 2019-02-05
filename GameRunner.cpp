@@ -15,7 +15,7 @@ int main()
   Player sue{"Sue"};
 	aGame.add(sue);
   
-  srand(time(NULL));
+  srand(time(NULL));  // Initialise random seed
 
 	while (!isGameOver)
 	{

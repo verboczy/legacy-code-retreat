@@ -2,8 +2,11 @@
 
 #include <iostream>
 
+// Parameterless constructor for Game. 
+// It initialises current playr to 0, and is getting out of penalty box to false.
 Game::Game() : m_currentPlayerId{0}, m_isGettingOutOfPenaltyBox{false}
 {
+  // Create categories on the place
   m_currentCategory.reserve(PLACE_SIZE);
   m_currentCategory.push_back("Pop");
   m_currentCategory.push_back("Science");
@@ -17,7 +20,7 @@ Game::Game() : m_currentPlayerId{0}, m_isGettingOutOfPenaltyBox{false}
   m_currentCategory.push_back("Science");
   m_currentCategory.push_back("Sports");
   m_currentCategory.push_back("Rock");
-  
+  // Add questions to categories
   for (int i = 0; i < 50; ++i)
   {
     std::string iToString = std::to_string(i);
@@ -28,6 +31,7 @@ Game::Game() : m_currentPlayerId{0}, m_isGettingOutOfPenaltyBox{false}
   }
 }
 
+// Returns the index-th pop question.
 std::string Game::getPopQuestion(int t_index)
 {
   int count = 0;
@@ -42,6 +46,7 @@ std::string Game::getPopQuestion(int t_index)
   return "";
 }
 
+// Returns the index-th science question.
 std::string Game::getScienceQuestion(int t_index)
 {
   int count = 0;
@@ -56,6 +61,7 @@ std::string Game::getScienceQuestion(int t_index)
   return "";
 }
 
+// Returns the index-th sports question.
 std::string Game::getSportsQuestion(int t_index)
 {
   int count = 0;
@@ -70,6 +76,7 @@ std::string Game::getSportsQuestion(int t_index)
   return "";
 }
 
+// Returns the index-th rock question.
 std::string Game::getRockQuestion(int t_index)
 {
   int count = 0;
@@ -84,21 +91,25 @@ std::string Game::getRockQuestion(int t_index)
   return "";
 }
 
+// Returns the id of the current player.
 int Game::getCurrentPlayerId()
 {
   return m_currentPlayerId;
 }
 
+// Returns the index-th player.
 Player Game::getPlayer(int t_index)
 {
   return m_players[t_index];
 }
 
+// Returns is getting out of penalty box.
 bool Game::getIsGettingOutOfPenaltyBox()
 {
   return m_isGettingOutOfPenaltyBox;
 }
 
+// Returns the current category, based on the current player's place.
 std::string Game::getCurrentCategory()
 {
   int place = m_players[m_currentPlayerId].m_place;
@@ -109,11 +120,14 @@ std::string Game::getCurrentCategory()
   return m_currentCategory[place];
 }
 
+// Returns whether the game is playable. 
+// True if there are more than 2 players.
 bool Game::isPlayable()
 {
   return (howManyPlayers() >= 2);
 }
 
+// Adds player the players, if the player has not been added already.
 void Game::add(Player t_player){
   if (!(isPlayingAlready(t_player)))
   {
@@ -127,6 +141,7 @@ void Game::add(Player t_player){
   }
 }
 
+// Returns if the given player is in the players.
 bool Game::isPlayingAlready(Player const & t_player)
 {
   for (auto it = m_players.begin(); it != m_players.end(); ++it)
@@ -139,18 +154,24 @@ bool Game::isPlayingAlready(Player const & t_player)
   return false;
 }
 
+// Returns the number of players.
 int Game::howManyPlayers()
 {
   return m_players.size();
 }
 
+// Puts the player in the next place or lets out the player 
+// from the penalty box, or not. Returns true if a question should be asked from 
+// the current player, false otherwise
 bool Game::roll(int t_roll)
 {
   std::cout << m_players[m_currentPlayerId] << " is the current player" << std::endl;
   std::cout << "(s)he has rolled a " << t_roll << std::endl;
 
+  // Current player is in penalty box
   if (m_players[m_currentPlayerId].m_isInPenaltyBox)
   {
+    // Gets out of penalty box
     if (t_roll % 2 != 0)
     {
       m_isGettingOutOfPenaltyBox = true;
@@ -159,6 +180,7 @@ bool Game::roll(int t_roll)
       incrementPlace(t_roll);
       return true;
     }
+    // Remains in penalty box
     else
     {
       std::cout << m_players[m_currentPlayerId] 
@@ -167,6 +189,7 @@ bool Game::roll(int t_roll)
       return false;
     }
   }
+  // Not in penalty box
   else
   {
     incrementPlace(t_roll);
@@ -174,6 +197,8 @@ bool Game::roll(int t_roll)
   }
 }
 
+// Adds the roll value to the current player's place.
+// It is greater, than the maximal place, then the player starts a new lap.
 void Game::incrementPlace(int t_roll)
 {
     m_players[m_currentPlayerId].m_place = 
@@ -189,6 +214,7 @@ void Game::incrementPlace(int t_roll)
     std::cout << "The category is " << getCurrentCategory() << std::endl;
 }
 
+// Ask question
 void Game::askQuestion()
 {
   if (getCurrentCategory() == "Pop")
@@ -213,20 +239,26 @@ void Game::askQuestion()
   }
 }
 
+// The player answered correctly. If (s)he has enough money, 
+// then (s)he is the winner, and the game is over.
 bool Game::wasCorrectlyAnswered()
 {
+  // Current player is in penalty box
   if (m_players[m_currentPlayerId].m_isInPenaltyBox)
   {
+    // Gets out
     if (m_isGettingOutOfPenaltyBox)
     {
       bool winner = correctAnswerNotRemainInPenalty();      
       return winner;
     }
+    // Remains in penalty box
     else
     {
       return false;
     }
   }
+  // Not in penalty box
   else
   {
     bool winner = correctAnswerNotRemainInPenalty();    
@@ -234,6 +266,7 @@ bool Game::wasCorrectlyAnswered()
   }
 }
 
+// Answer was correct, increase purse. Returns if the player has enough money.
 bool Game::correctAnswerNotRemainInPenalty()
 {
   std::cout << "Answer was correct!!!!" << std::endl;
@@ -243,6 +276,7 @@ bool Game::correctAnswerNotRemainInPenalty()
   return didPlayerWin();
 }
 
+// The answer was wrong. Put the current player into the penalty box.
 void Game::wrongAnswer()
 {
   std::cout << "Question was incorrectly answered" << std::endl;
@@ -251,12 +285,13 @@ void Game::wrongAnswer()
   m_players[m_currentPlayerId].m_isInPenaltyBox = true;
 }
 
+// Returns if the player has enough money.
 bool Game::didPlayerWin()
 {
-  return m_players[m_currentPlayerId].m_purse >= 6;
+  return m_players[m_currentPlayerId].m_purse >= PURSE_LIMIT;
 }
 
-
+// Set current player to the next player.
 void Game::changeCurrentPlayerToNextPlayer()
 {
   ++m_currentPlayerId;
@@ -267,43 +302,53 @@ void Game::changeCurrentPlayerToNextPlayer()
 }
 
 /********************** Player methods **********************/
-
+// Player's constructor with name parameter. 
+// It initialises purse to 0,
+// place to 0,
+// and is in penalty box to false.
 Player::Player(std::string t_name) : 
   m_name{t_name}, m_purse{0}, m_place{0}, m_isInPenaltyBox{false} 
 {
   // Initialised everything
 }
 
+// Returns player's name.
 std::string Player::getName()
 {
   return m_name;
 }
 
+// Returns player's purse.
 int Player::getPurse()
 {
   return m_purse;
 }
 
+// Returns player's place.
 int Player::getPlace()
 {
   return m_place;
 }
 
+// Returns if the player is in penalty box.
 bool Player::getIsInPenaltyBox()
 {
   return m_isInPenaltyBox;
 }
 
+// Two players are equal if, their names are equal.
 bool Player::operator==(Player const & t_rhs)
 {
   return (this->m_name == t_rhs.m_name);
 }
 
+// Two players are not equal, if they are not equal.
 bool Player::operator!=(Player const & t_rhs)
 {
   return !(*this == t_rhs);
 }
 
+// Using << on a player, accesses the name.
 std::ostream& operator<<(std::ostream& t_os, Player const & t_player)
 {
   t_os << t_player.m_name;

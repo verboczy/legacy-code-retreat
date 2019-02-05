@@ -31,6 +31,7 @@ class Game
 {
   public:
     const int PLACE_SIZE = 12;
+    const int PURSE_LIMIT = 6;
   
     Game();
     
